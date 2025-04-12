@@ -1,0 +1,49 @@
+#movie-info {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.movie-title {
+    font-size: 3rem;
+    color: #00A9E0;
+    font-weight: bold;
+}
+
+.movie-year {
+    font-size: 1.2rem;
+    color: #B4B4B4;
+    margin-left: 0.5rem;
+}
+
+#movie-details th, #movie-details td {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#movie-details th {
+    background-color: #2F4F4F;
+    color: #FFFFFF;
+}
+
+#movie-details tbody tr:nth-child(odd) {
+    /*background-color: #f9f9f9;*/
+    background-color: #3a6e6e;
+}
+#movie-details tbody tr:nth-child(even) {
+    /*background-color: #f9f9f9;*/
+    background-color: #507878;
+}
+
+#movie-details tbody tr:hover {
+    /*background-color: #e1e1e1;*/
+    background-color: #5d6f71;
+}
+
+a {
+    color: #d5b15e;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

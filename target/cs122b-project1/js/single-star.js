@@ -50,9 +50,9 @@ function handleResult(resultData) {
             const movie = movies[i];
             let rowHTML = "";
             rowHTML += "<tr>";
-            rowHTML += `<th><a href="single_movie.html?id=${movie["movie_id"]}">${movie["movie_title"]}</a></th>`;
-            rowHTML += "<th>" + movie["movie_year"] + "</th>";
-            rowHTML += "<th>" + movie["movie_director"] + "</th>";
+            rowHTML += `<td><a href="single_movie.html?id=${movie["movie_id"]}">${movie["movie_title"]}</a></td>`;
+            rowHTML += "<td>" + movie["movie_year"] + "</td>";
+            rowHTML += "<td>" + movie["movie_director"] + "</td>";
             rowHTML += "</tr>";
 
             movieTableBodyElement.append(rowHTML);
