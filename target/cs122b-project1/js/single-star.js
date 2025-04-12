@@ -34,6 +34,10 @@ function handleResult(resultData) {
     if (resultData && Array.isArray(resultData) && resultData.length > 0) {
         const star = resultData[0];
 
+        // let starInfoElement = jQuery("#star_info");
+        // starInfoElement.append("<p>Star Name: " + star["star_name"] + "</p>" +
+        //     "<p>Date Of Birth: " + star["star_dob"] + "</p>");
+
         let starNameElement = jQuery("#star_name");
         starNameElement.text(star["star_name"]);  // Name in big bold font
         starNameElement.append(`<span>(${star["star_dob"]})</span>`);
