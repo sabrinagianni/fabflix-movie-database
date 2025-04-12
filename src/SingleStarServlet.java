@@ -36,6 +36,7 @@ public class SingleStarServlet extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("MovieListServlet was triggered");
 
         response.setContentType("application/json"); // Response mime type
 

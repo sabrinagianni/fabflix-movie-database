@@ -6,6 +6,7 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+<<<<<<< HEAD
 target/
 
 # Created by https://www.gitignore.io/api/java,maven,eclipse,java-web,intellij
@@ -177,3 +178,7 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/java,maven,eclipse,java-web,intellij
+=======
+target/*.war
+target/
+>>>>>>> singlemovieservlet
