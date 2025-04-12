@@ -1,4 +1,5 @@
 #title {
+    font-family: Garamond, sans-serif;
     font-size: 3rem;
     color: #6684b5;
     text-align: center;
@@ -7,13 +8,14 @@
 }
 
 #top20 {
+    font-family: Garamond, sans-serif;
     font-size: 1.8rem;
     color: #34495e;
     text-align: center;
     margin-bottom: 2rem;
 }
 
-#movie_table tr:hover {
-    background-color: inherit;
-    color: inherit;
-}
+/*#movie_table tr:hover {*/
+/*    background-color: inherit;*/
+/*    color: inherit;*/
+/*}*/
