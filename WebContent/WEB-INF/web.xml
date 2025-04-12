@@ -15,31 +15,31 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
-    <!--    &lt;!&ndash; Register Servlets and URL mappings &ndash;&gt;-->
-    <!--    <servlet>-->
-    <!--        <servlet-name>MovieListServlet</servlet-name>-->
-    <!--        <servlet-class>MovieListServlet</servlet-class>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>MovieListServlet</servlet-name>-->
-    <!--        <url-pattern>/api/movielist</url-pattern>-->
-    <!--    </servlet-mapping>-->
+<!--    &lt;!&ndash; Register Servlets and URL mappings &ndash;&gt;-->
+<!--    <servlet>-->
+<!--        <servlet-name>MovieListServlet</servlet-name>-->
+<!--        <servlet-class>MovieListServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>MovieListServlet</servlet-name>-->
+<!--        <url-pattern>/api/movielist</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <!--    <servlet>-->
-    <!--        <servlet-name>SingleMovieServlet</servlet-name>-->
-    <!--        <servlet-class>SingleMovieServlet</servlet-class>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>SingleMovieServlet</servlet-name>-->
-    <!--        <url-pattern>/api/movie</url-pattern>-->
-    <!--    </servlet-mapping>-->
+<!--    <servlet>-->
+<!--        <servlet-name>SingleMovieServlet</servlet-name>-->
+<!--        <servlet-class>SingleMovieServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>SingleMovieServlet</servlet-name>-->
+<!--        <url-pattern>/api/movie</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <!--    <servlet>-->
-    <!--        <servlet-name>SingleStarServlet</servlet-name>-->
-    <!--        <servlet-class>SingleStarServlet</servlet-class>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>SingleStarServlet</servlet-name>-->
-    <!--        <url-pattern>/api/single-star</url-pattern>-->
-    <!--    </servlet-mapping>-->
+<!--    <servlet>-->
+<!--        <servlet-name>SingleStarServlet</servlet-name>-->
+<!--        <servlet-class>SingleStarServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>SingleStarServlet</servlet-name>-->
+<!--        <url-pattern>/api/single-star</url-pattern>-->
+<!--    </servlet-mapping>-->
 </web-app>
