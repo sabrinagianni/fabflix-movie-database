@@ -1,7 +1,7 @@
 #star_info {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #00A9E0;
+    color: #6684b5;
     text-align: center;
     margin-top: 30px;
 }
@@ -15,7 +15,7 @@
 #star_name {
     font-size: 3rem;
     font-weight: bold;
-    color: #00A9E0;
+    color: #6684b5;
     margin-bottom: 10px;
 }
 
@@ -37,17 +37,17 @@
 }
 
 #movie_table th {
-    background-color: #2F4F4F;
+    background-color: #274747;
     color: #FFFFFF;
 }
 
 #movie_table tbody tr:nth-child(odd) {
     /*background-color: #f9f9f9;*/
-    background-color: #3a6e6e;
+    background-color: rgba(58, 110, 110, 0.87);
 }
 #movie_table tbody tr:nth-child(even) {
     /*background-color: #f9f9f9;*/
-    background-color: #507878;
+    background-color: rgba(80, 120, 120, 0.79);
 }
 
 #movie_table tbody tr:hover {
@@ -62,20 +62,5 @@ a {
 
 a:hover {
     text-decoration: underline;
-}
-
-/* Custom Button (if any) */
-.btn-custom {
-    background-color: #00A9E0;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.btn-custom:hover {
-    background-color: #357ABD;
 }
 

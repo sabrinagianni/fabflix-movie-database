@@ -10,12 +10,35 @@
 #top20 {
     font-family: Garamond, sans-serif;
     font-size: 1.8rem;
-    color: #34495e;
+    color: #B4B4B4;
     text-align: center;
     margin-bottom: 2rem;
 }
 
-/*#movie_table tr:hover {*/
-/*    background-color: inherit;*/
-/*    color: inherit;*/
-/*}*/
+#movie_table th {
+    background-color: #274747;
+    color: #FFFFFF;
+}
+
+#movie_table tbody tr:nth-child(odd) {
+    /*background-color: #f9f9f9;*/
+    background-color: rgba(58, 110, 110, 0.87);
+}
+#movie_table tbody tr:nth-child(even) {
+    /*background-color: #f9f9f9;*/
+    background-color: rgba(80, 120, 120, 0.79);
+}
+
+#movie_table tbody tr:hover {
+    /*background-color: #e1e1e1;*/
+    background-color: #5d6f71;
+}
+
+a {
+    color: #d5b15e;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

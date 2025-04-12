@@ -5,7 +5,7 @@
 
 .movie-title {
     font-size: 3rem;
-    color: #00A9E0;
+    color: #6684b5;
     font-weight: bold;
 }
 
@@ -21,17 +21,17 @@
 }
 
 #movie-details th {
-    background-color: #2F4F4F;
+    background-color: #274747;
     color: #FFFFFF;
 }
 
 #movie-details tbody tr:nth-child(odd) {
     /*background-color: #f9f9f9;*/
-    background-color: #3a6e6e;
+    background-color: rgba(58, 110, 110, 0.87);
 }
 #movie-details tbody tr:nth-child(even) {
     /*background-color: #f9f9f9;*/
-    background-color: #507878;
+    background-color: rgba(80, 120, 120, 0.79);
 }
 
 #movie-details tbody tr:hover {
