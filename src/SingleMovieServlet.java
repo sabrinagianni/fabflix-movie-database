@@ -59,15 +59,23 @@ public class SingleMovieServlet extends HttpServlet {
             JsonArray jsonArray = new JsonArray();
 
             while (rs.next()) {
+
+                String id = rs.getString("id");
+                String title = rs.getString("title");
+                String year = rs.getString("year");
+                String director = rs.getString("director");
+                String rating = rs.getString("rating");
+                String genres = rs.getString("genres");
+                String stars = rs.getString("stars");
+
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("id", rs.getString("id"));
-                jsonObject.addProperty("title", rs.getString("title"));
-                jsonObject.addProperty("year", rs.getString("year"));
-                jsonObject.addProperty("director", rs.getString("director"));
-                jsonObject.addProperty("rating", rs.getString("rating"));
+                jsonObject.addProperty("id", id);
+                jsonObject.addProperty("title", title);
+                jsonObject.addProperty("year", year);
+                jsonObject.addProperty("director", director);
+                jsonObject.addProperty("rating", rating);
 
                 JsonArray genresArr = new JsonArray();
-                String genres = rs.getString("genres");
                 if (genres != null) {
                     for (String genre : genres.split(",")) {
                         genresArr.add(genre.trim());
@@ -76,7 +84,6 @@ public class SingleMovieServlet extends HttpServlet {
                 jsonObject.add("genres", genresArr);
 
                 JsonArray starsArr = new JsonArray();
-                String stars = rs.getString("stars");
                 if (stars != null) {
                     for (String star : stars.split(",")) {
                         String[] starInfo = star.split(":");
@@ -84,15 +91,16 @@ public class SingleMovieServlet extends HttpServlet {
                             JsonObject starJson = new JsonObject();
                             starJson.addProperty("name", starInfo[0].trim());
                             starJson.addProperty("id", starInfo[1].trim());
-
                             starsArr.add(starJson);
                         }
                     }
                 }
+
                 jsonObject.add("stars", starsArr);
 
                 jsonArray.add(jsonObject);
             }
+
             rs.close();
             statement.close();
 
