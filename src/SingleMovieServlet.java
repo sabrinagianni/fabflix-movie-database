@@ -39,7 +39,6 @@ public class SingleMovieServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try (Connection conn = dataSource.getConnection()) {
-            // SQL query to retrieve the movie's details, including rating and genres
             String query = "SELECT m.id, m.title, m.year, m.director, r.rating, " +
                     "GROUP_CONCAT(DISTINCT g.name) AS genres, " +
                     "GROUP_CONCAT(DISTINCT s.name, ':', s.id) AS stars " +
@@ -48,7 +47,7 @@ public class SingleMovieServlet extends HttpServlet {
                     "LEFT JOIN genres g ON gim.genreId = g.id " +
                     "LEFT JOIN stars_in_movies sim ON m.id = sim.movieId " +
                     "LEFT JOIN stars s ON sim.starId = s.id " +
-                    "LEFT JOIN ratings r ON m.id = r.movieId " +  // Include the ratings table
+                    "LEFT JOIN ratings r ON m.id = r.movieId " +
                     "WHERE m.id = ? " +
                     "GROUP BY m.id";
 
@@ -67,7 +66,6 @@ public class SingleMovieServlet extends HttpServlet {
                 jsonObject.addProperty("director", rs.getString("director"));
                 jsonObject.addProperty("rating", rs.getString("rating"));
 
-                // Handling genres
                 JsonArray genresArr = new JsonArray();
                 String genres = rs.getString("genres");
                 if (genres != null) {
@@ -77,7 +75,6 @@ public class SingleMovieServlet extends HttpServlet {
                 }
                 jsonObject.add("genres", genresArr);
 
-                // Handling stars and making them hyperlinked
                 JsonArray starsArr = new JsonArray();
                 String stars = rs.getString("stars");
                 if (stars != null) {
