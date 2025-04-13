@@ -75,15 +75,15 @@ public class SingleMovieServlet extends HttpServlet {
                 jsonObject.addProperty("director", director);
                 jsonObject.addProperty("rating", rating);
 
-                JsonArray genresArr = new JsonArray();
+                JsonArray genresArray = new JsonArray();
                 if (genres != null) {
                     for (String genre : genres.split(",")) {
-                        genresArr.add(genre.trim());
+                        genresArray.add(genre.trim());
                     }
                 }
-                jsonObject.add("genres", genresArr);
+                jsonObject.add("genres", genresArray);
 
-                JsonArray starsArr = new JsonArray();
+                JsonArray starsArray = new JsonArray();
                 if (stars != null) {
                     for (String star : stars.split(",")) {
                         String[] starInfo = star.split(":");
@@ -91,12 +91,12 @@ public class SingleMovieServlet extends HttpServlet {
                             JsonObject starJson = new JsonObject();
                             starJson.addProperty("name", starInfo[0].trim());
                             starJson.addProperty("id", starInfo[1].trim());
-                            starsArr.add(starJson);
+                            starsArray.add(starJson);
                         }
                     }
                 }
 
-                jsonObject.add("stars", starsArr);
+                jsonObject.add("stars", starsArray);
 
                 jsonArray.add(jsonObject);
             }

@@ -53,31 +53,37 @@ public class MovieListServlet extends HttpServlet {
             JsonArray jsonArray = new JsonArray();
 
             while (rs.next()) {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("id", rs.getString("id"));
-                jsonObject.addProperty("title", rs.getString("title"));
-                jsonObject.addProperty("year", rs.getString("year"));
-                jsonObject.addProperty("director", rs.getString("director"));
-                jsonObject.addProperty("rating", rs.getString("rating"));
+                String id = rs.getString("id");
+                String title = rs.getString("title");
+                String year = rs.getString("year");
+                String director = rs.getString("director");
+                String rating = rs.getString("rating");
+                String genres = rs.getString("genres");
+                String stars = rs.getString("stars");
 
-                String genresStr = rs.getString("genres");
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("id", id);
+                jsonObject.addProperty("title", title);
+                jsonObject.addProperty("year", year);
+                jsonObject.addProperty("director", director);
+                jsonObject.addProperty("rating", rating);
+
                 JsonArray genresArray = new JsonArray();
-                if (genresStr != null) {
-                    for (String genre : genresStr.split(",\\s*")) {
+                if (genres != null) {
+                    for (String genre : genres.split(",\\s*")) {
                         genresArray.add(genre);
                     }
                 }
                 jsonObject.add("genres", genresArray);
 
-                String starsStr = rs.getString("stars");
                 JsonArray starsArray = new JsonArray();
-                if (starsStr != null) {
-                    for (String star : starsStr.split(",\\s*")) {
+                if (stars != null) {
+                    for (String star : stars.split(",\\s*")) {
                         String[] parts = star.split(":");
                         if (parts.length == 2) {
                             JsonObject starObj = new JsonObject();
-                            starObj.addProperty("id", parts[0]);
-                            starObj.addProperty("name", parts[1]);
+                            starObj.addProperty("id", parts[0].trim());
+                            starObj.addProperty("name", parts[1].trim());
                             starsArray.add(starObj);
                         }
                     }
