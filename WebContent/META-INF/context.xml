@@ -6,7 +6,7 @@
               maxIdle="30"
               maxWaitMillis="10000"
               username="mytestuser"
-              password="mypassword"
+              password="My6$Password"
               driverClassName="com.mysql.cj.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb"/>
 </Context>
