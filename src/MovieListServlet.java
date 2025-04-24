@@ -33,6 +33,8 @@ public class MovieListServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try (Connection conn = dataSource.getConnection()) {
+            String genreParam = request.getParameter("genre");
+            String titleStartParam = request.getParameter("title");
             String query =
                     "SELECT m.id, m.title, m.year, m.director, r.rating, " +
                             "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genres, " +
