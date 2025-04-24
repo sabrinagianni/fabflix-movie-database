@@ -14,6 +14,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movielist")
 public class MovieListServlet extends HttpServlet {
@@ -35,6 +37,27 @@ public class MovieListServlet extends HttpServlet {
         try (Connection conn = dataSource.getConnection()) {
             String genreParam = request.getParameter("genre");
             String titleStartParam = request.getParameter("title");
+
+            List<String> filters = new ArrayList<>();
+            List<String> params = new ArrayList<>();
+
+            if (genreParam!= null && !genreParam.isEmpty()) {
+                filters.add("g.name = ?");
+                params.add(genreParam);
+            }
+
+            if (titleStartParam != null && !titleStartParam.isEmpty()) {
+                if (titleStartParam.equals("*")) {
+                    filters.add("m.title REGEXP '^[^a-zA-Z0-9]'");
+                }
+                else {
+                    filters.add("m.title LIKE ?");
+                    params.add(titleStartParam + "%");
+                }
+            }
+
+            String addCondition = filters.isEmpty() ? "" : (" WHERE " + String.join(" AND ", filters));
+
             String query =
                     "SELECT m.id, m.title, m.year, m.director, r.rating, " +
                             "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genres, " +
@@ -45,11 +68,17 @@ public class MovieListServlet extends HttpServlet {
                             "LEFT JOIN genres g ON g.id = gm.genreId " +
                             "LEFT JOIN stars_in_movies sm ON m.id = sm.movieId " +
                             "LEFT JOIN stars s ON s.id = sm.starId " +
+                            addCondition +
                             "GROUP BY m.id " +
                             "ORDER BY r.rating DESC " +
                             "LIMIT 20";
 
             PreparedStatement statement = conn.prepareStatement(query);
+
+            for (int i = 0; i < params.size(); i++) {
+                statement.setString(i + 1, params.get(i));
+            }
+
             ResultSet rs = statement.executeQuery();
 
             JsonArray jsonArray = new JsonArray();
