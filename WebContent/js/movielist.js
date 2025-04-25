@@ -39,9 +39,11 @@ function handleMovieResult(resultData) {
     }
 }
 
+const urlparam = window.location.search;
+const fullURL = "api/movielist" + urlparam
 jQuery.ajax({
     dataType: "json",
     method: "GET",
-    url: "api/movielist",
+    url: fullURL,
     success: handleMovieResult
 });

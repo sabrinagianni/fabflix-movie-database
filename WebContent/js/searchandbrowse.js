@@ -1,7 +1,7 @@
 document.getElementById("search-and-browse").addEventListener("submit", function(event) {
     event.preventDefault();
     const params = new URLSearchParams(new FormData(this)).toString();
-    window.location.href = `movie-list.html?${params}`;
+    window.location.href = `movielist.html?${params}`;
 });
 
 function browseGenres() {
@@ -13,7 +13,7 @@ function browseGenres() {
 
             data.forEach(genre => {
                 const a = document.createElement("a");
-                a.href = `movie-list.html?genre=${encodeURIComponent(genre.name)}`;
+                a.href = `movielist.html?genre=${encodeURIComponent(genre.name)}`;
                 a.textContent = genre.name;
                 container.appendChild(a);
                 container.append(" ");
@@ -27,7 +27,7 @@ function browseGenres() {
 
         letters.forEach(word => {
             const a = document.createElement("a");
-            a.href = `movie-list.html?title=${word}`;
+            a.href = `movielist.html?title=${word}`;
             a.textContent = word;
             container.appendChild(a);
             container.append(" ");
