@@ -9,7 +9,7 @@ function handleLoginResult(resultDataString) {
     console.log(resultDataJson["status"]);
 
     if (resultDataJson["status"] === "success") {
-        window.location.replace("movielist.html");
+        window.location.replace("SearchandBrowse.html");
     } else {
         console.log("show error message");
         console.log(resultDataJson["message"]);
