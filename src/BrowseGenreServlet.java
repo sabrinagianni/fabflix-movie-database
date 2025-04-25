@@ -34,9 +34,7 @@ public class BrowseGenreServlet extends HttpServlet {
 
         try (Connection conn = dataSource.getConnection()) {
             String query =
-                    "SELECT DISTINCT name " +
-                    "FROM genres " +
-                    "ORDER BY name ASC";
+                    "SELECT DISTINCT name FROM genres ORDER BY name ASC";
 
             PreparedStatement statement = conn.prepareStatement(query);
             ResultSet rs = statement.executeQuery();

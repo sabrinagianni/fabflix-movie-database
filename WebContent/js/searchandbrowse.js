@@ -8,7 +8,7 @@ function browseGenres() {
     fetch("api/browse-genres")
         .then(res => res.json())
         .then(data => {
-            const container = document.getElementById("browse-by-genres");
+            const container = document.getElementById("browse-by-genre");
             container.innerHTML = "<h3>Browse by Genre:</h3>";
 
             data.forEach(genre => {
@@ -19,6 +19,7 @@ function browseGenres() {
                 container.append(" ");
             });
         });
+}
 
     function browseTitle() {
         const letters = ["*", ..."0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
@@ -38,4 +39,5 @@ function browseGenres() {
         fetch("api/logout").then(() => window.location.href = "login.html");
     }
 
-}
+browseGenres();
+browseTitle();
