@@ -35,93 +35,129 @@ public class MovieListServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try (Connection conn = dataSource.getConnection()) {
-            String genreParam = request.getParameter("genre");
-            String titleStartParam = request.getParameter("title");
+            String genre = request.getParameter("genre");
+            String title = request.getParameter("title");
+            String sort = request.getParameter("sort");
+            int limit = Integer.parseInt(request.getParameter("limit"));
+            int page = Integer.parseInt(request.getParameter("page"));
+            int offset = (page - 1) * limit;
+
+
+            StringBuilder query = new StringBuilder(
+
+                    "SELECT m.id, m.title, m.year, m.director, r.rating, " +
+                            "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genres, " +
+                            "GROUP_CONCAT(DISTINCT CONCAT(s.id, ':', s.name)" +
+                            "ORDER BY IFNULL(sc.movie_count, 0) DESC, s.name ASC SEPARATOR ', ') AS stars " +
+                            "FROM movies m " +
+                            "JOIN ratings r ON m.id = r.movieId " +
+                            "LEFT JOIN genres_in_movies gm ON m.id = gm.movieId " +
+                            "LEFT JOIN genres g ON gm.genreId = g.id " +
+                            "LEFT JOIN stars_in_movies sm ON m.id = sm.movieId " +
+                            "LEFT JOIN stars s ON sm.starId = s.id " +
+                            "LEFT JOIN (SELECT starId, COUNT(*) AS movie_count FROM stars_in_movies GROUP BY starId) sc ON sm.starId = sc.starId ");
 
             List<String> filters = new ArrayList<>();
             List<String> params = new ArrayList<>();
 
-            if (genreParam!= null && !genreParam.isEmpty()) {
+            if (genre != null && !genre.isEmpty()) {
                 filters.add("g.name = ?");
-                params.add(genreParam);
+                params.add(genre);
             }
 
-            if (titleStartParam != null && !titleStartParam.isEmpty()) {
-                if (titleStartParam.equals("*")) {
+            if (title != null && !title.isEmpty()) {
+                if (title.equals("*")) {
                     filters.add("m.title REGEXP '^[^a-zA-Z0-9]'");
-                }
-                else {
+                } else {
                     filters.add("m.title LIKE ?");
-                    params.add(titleStartParam + "%");
+                    params.add(title + "%");
                 }
             }
 
-            String addCondition = filters.isEmpty() ? "" : (" WHERE " + String.join(" AND ", filters));
-
-            String query =
-                    "SELECT m.id, m.title, m.year, m.director, r.rating, " +
-                            "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genres, " +
-                            "GROUP_CONCAT(DISTINCT CONCAT(s.id, ':', s.name) ORDER BY s.name SEPARATOR ', ') AS stars " +
-                            "FROM movies m " +
-                            "JOIN ratings r ON m.id = r.movieId " +
-                            "LEFT JOIN genres_in_movies gm ON m.id = gm.movieId " +
-                            "LEFT JOIN genres g ON g.id = gm.genreId " +
-                            "LEFT JOIN stars_in_movies sm ON m.id = sm.movieId " +
-                            "LEFT JOIN stars s ON s.id = sm.starId " +
-                            addCondition +
-                            "GROUP BY m.id " +
-                            "ORDER BY r.rating DESC " +
-                            "LIMIT 20";
-
-            PreparedStatement statement = conn.prepareStatement(query);
-
-            for (int i = 0; i < params.size(); i++) {
-                statement.setString(i + 1, params.get(i));
+            if (!filters.isEmpty()) {
+                query.append("WHERE ").append(String.join(" AND ", filters)).append(" ");
             }
+
+            query.append("GROUP BY m.id ");
+
+            if (sort != null) {
+                query.append("ORDER BY ");
+                switch (sort) {
+                    case "titleasc_ratingdesc":
+                        query.append("m.title ASC, r.rating DESC ");
+                        break;
+                    case "titleasc_ratingasc":
+                        query.append("m.title ASC, r.rating ASC ");
+                        break;
+                    case "titledesc_ratingasc":
+                        query.append("m.title DESC, r.rating ASC ");
+                        break;
+                    case "titledesc_ratingdesc":
+                        query.append("m.title DESC, r.rating DESC ");
+                        break;
+                    case "ratingasc_titleasc":
+                        query.append("r.rating ASC, m.title ASC ");
+                        break;
+                    case "ratingasc_titledesc":
+                        query.append("r.rating ASC, m.title DESC ");
+                        break;
+                    case "ratingdesc_titleasc":
+                        query.append("r.rating DESC, m.title ASC ");
+                        break;
+                    case "ratingdesc_titledesc":
+                        query.append("r.rating DESC, m.title DESC ");
+                        break;
+                    default:
+                        query.append("r.rating DESC, m.title ASC "); // fallback
+                }
+            }
+
+            query.append("LIMIT ? OFFSET ?");
+
+            PreparedStatement statement = conn.prepareStatement(query.toString());
+
+            int i = 1;
+            for (String p : params) {
+                statement.setString(i++, p);
+            }
+            statement.setInt(i++, limit);
+            statement.setInt(i, offset);
 
             ResultSet rs = statement.executeQuery();
 
             JsonArray jsonArray = new JsonArray();
 
             while (rs.next()) {
-                String id = rs.getString("id");
-                String title = rs.getString("title");
-                String year = rs.getString("year");
-                String director = rs.getString("director");
-                String rating = rs.getString("rating");
-                String genres = rs.getString("genres");
-                String stars = rs.getString("stars");
-
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("id", id);
-                jsonObject.addProperty("title", title);
-                jsonObject.addProperty("year", year);
-                jsonObject.addProperty("director", director);
-                jsonObject.addProperty("rating", rating);
+                JsonObject movie = new JsonObject();
+                movie.addProperty("id", rs.getString("id"));
+                movie.addProperty("title", rs.getString("title"));
+                movie.addProperty("year", rs.getString("year"));
+                movie.addProperty("director", rs.getString("director"));
+                movie.addProperty("rating", rs.getString("rating"));
 
                 JsonArray genresArray = new JsonArray();
-                if (genres != null) {
-                    for (String genre : genres.split(",\\s*")) {
-                        genresArray.add(genre);
+                if (rs.getString("genres") != null) {
+                    for (String g : rs.getString("genres").split(",\\s*")) {
+                        genresArray.add(g);
                     }
                 }
-                jsonObject.add("genres", genresArray);
+                movie.add("genres", genresArray);
 
                 JsonArray starsArray = new JsonArray();
-                if (stars != null) {
-                    for (String star : stars.split(",\\s*")) {
-                        String[] parts = star.split(":");
+                if (rs.getString("stars") != null) {
+                    for (String s : rs.getString("stars").split(",\\s*")) {
+                        String[] parts = s.split(":");
                         if (parts.length == 2) {
                             JsonObject starObj = new JsonObject();
-                            starObj.addProperty("id", parts[0].trim());
-                            starObj.addProperty("name", parts[1].trim());
+                            starObj.addProperty("id", parts[0]);
+                            starObj.addProperty("name", parts[1]);
                             starsArray.add(starObj);
                         }
                     }
                 }
-                jsonObject.add("stars", starsArray);
+                movie.add("stars", starsArray);
 
-                jsonArray.add(jsonObject);
+                jsonArray.add(movie);
             }
 
             rs.close();
