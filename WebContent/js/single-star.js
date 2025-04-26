@@ -23,6 +23,20 @@ function getParameterByName(target) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function createBackButton() {
+    $.get("api/get-session-params", function(data) {
+        const url = new URLSearchParams();
+        if (data.genre) url.append("genre", data.genre);
+        if (data.title) url.append("title", data.title);
+        if (data.sort) url.append("sort", data.sort);
+        if (data.limit) url.append("limit", data.limit);
+        if (data.page) url.append("page", data.page);
+
+        const linkHTML = `<a href="movielist.html?${url.toString()}" style="font-weight: bold; font-size: 18px; color: #6684b5">← Back to Movie List</a>`;
+        document.getElementById("back-link").innerHTML = linkHTML;
+    });
+}
+
 /**
  * Handles the data returned by the API and populates it into HTML elements.
  * @param resultData jsonObject
@@ -33,10 +47,6 @@ function handleResult(resultData) {
     // Check if resultData is an array
     if (resultData && Array.isArray(resultData) && resultData.length > 0) {
         const star = resultData[0];
-
-        // let starInfoElement = jQuery("#star_info");
-        // starInfoElement.append("<p>Star Name: " + star["star_name"] + "</p>" +
-        //     "<p>Date Of Birth: " + star["star_dob"] + "</p>");
 
         let starNameElement = jQuery("#star_name");
         starNameElement.text(star["star_name"]);  // Name in big bold font
@@ -65,14 +75,24 @@ function handleResult(resultData) {
 /**
  * Once the .js is loaded, following scripts will be executed.
  */
-
-// Get star ID from the URL
-let starId = getParameterByName('id');
-
-// Make the HTTP GET request and handle the result
-jQuery.ajax({
-    dataType: "json",  // Setting return data type
-    method: "GET",     // Setting request method
-    url: "api/single-star?id=" + starId, // Request URL, mapped by the backend
-    success: (resultData) => handleResult(resultData) // Callback to handle data
+$(document).ready(() => {
+    createBackButton();
+    let starId = getParameterByName('id');
+    $.ajax({
+        dataType: "json",
+        method: "GET",
+        url: "api/single-star?id=" + starId,
+        success: handleResult
+    });
 });
+
+// // Get star ID from the URL
+// let starId = getParameterByName('id');
+//
+// // Make the HTTP GET request and handle the result
+// jQuery.ajax({
+//     dataType: "json",  // Setting return data type
+//     method: "GET",     // Setting request method
+//     url: "api/single-star?id=" + starId, // Request URL, mapped by the backend
+//     success: (resultData) => handleResult(resultData) // Callback to handle data
+// });
