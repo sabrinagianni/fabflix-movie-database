@@ -50,6 +50,10 @@ public class CartServlet extends HttpServlet {
             return quantity;
         }
 
+        public String getMovieId() {
+            return movieId;
+        }
+
         public JsonObject makeJsonObject(){
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("movieId", movieId);
