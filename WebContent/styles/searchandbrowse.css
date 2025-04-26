@@ -1,0 +1,88 @@
+h1 {
+    font-family: Garamond, sans-serif;
+    font-size: 3rem;
+    color: #6684b5;
+    text-align: center;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+form#search-and-browse {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 30px;
+    background-color: #2F4F4F;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+form#search-and-browse input[type="text"],
+form#search-and-browse input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form#search-and-browse input[type="submit"] {
+    background-color: #00A9E0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+form#search-and-browse input[type="submit"]:hover {
+    background-color: #007bb8;
+}
+
+#browse-by-genre,
+#browse-by-title {
+    max-width: 800px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+#browse-by-genre h3,
+#browse-by-title h3 {
+    font-family: Garamond, sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+#browse-by-genre a,
+#browse-by-title a {
+    display: inline-block;
+    margin: 0.25rem 0.4rem;
+    padding: 5px 10px;
+    background-color: #dbeeff;
+    color: #005699;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#browse-by-genre a:hover,
+#browse-by-title a:hover {
+    background-color: #b4daff;
+}
+
+button {
+    display: inline-block;
+    margin: 1rem 1rem;
+    padding: 10px 20px;
+    background-color: #00A9E0;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #007bb8;
+}
