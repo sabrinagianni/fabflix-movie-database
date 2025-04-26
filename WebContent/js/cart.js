@@ -52,9 +52,10 @@ function updateQuantity() {
     const quantity = $(this).val();
 
     $.ajax({
-        method: "PUT",
+        method: "POST",
         url: "api/cart",
         data: {
+            _method: "PUT",
             movieId: movieId,
             quantity: quantity
         },
@@ -69,18 +70,19 @@ function deleteItem() {
 
     $.ajax({
         method: "DELETE",
-        url: "api/cart",
-        data: {
-            movieId: movieId
-        },
+        url: "api/cart?movieId=" + encodeURIComponent(movieId),
         success: function() {
             showMyCart();
+        },
+        error: function() {
+            console.error("Failed to delete movie from cart");
         }
     });
 }
 
+
 function proceedToCheckout() {
-    window.location.href = "checkout.html";
+    window.location.href = "payment.html";
 }
 
 showMyCart();

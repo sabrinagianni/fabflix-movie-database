@@ -83,6 +83,12 @@ public class CartServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String method = request.getParameter("_method");
+        if ("PUT".equalsIgnoreCase(method)) {
+            doPut(request, response);
+            return;
+        }
+
         String movieId = request.getParameter("movieId");
         String title = request.getParameter("title");
         String priceInString = request.getParameter("price");

@@ -45,6 +45,35 @@ function fetchMovies() {
     });
 }
 
+function addToCart(movieId, title) {
+    $.ajax({
+        method: "POST",
+        url: "api/cart",
+        data: {
+            movieId: movieId,
+            title: title,
+            price: 19.99
+        },
+        success: function(response) {
+            showMessage("Added to cart!");
+        },
+        error: function() {
+            showMessage("Failed to add to cart.");
+        }
+    });
+}
+
+function showMessage(message, isError = false) {
+    const messageDiv = document.getElementById("cart-message");
+    messageDiv.textContent = message;
+    messageDiv.style.color = isError ? "red" : "green";
+
+    setTimeout(() => {
+        messageDiv.textContent = "";
+    }, 2000);
+}
+
+
 function handleMovieResult(resultData) {
     console.log("handleMovieResult: populating movie table from resultData");
 
@@ -69,11 +98,11 @@ function handleMovieResult(resultData) {
         rowHTML += `<td>${starsHTML}</td>`;
 
         rowHTML += `<td>${movie["rating"]}</td>`;
+        rowHTML += `<td><button onclick="addToCart('${movie["id"]}', '${movie["title"]}')">Add to Shopping Cart</button></td>`;
         rowHTML += "</tr>";
 
         movieTableBodyElement.append(rowHTML);
     });
-
 
     $(".movie-link").on("click", function (e) {
         e.preventDefault();
