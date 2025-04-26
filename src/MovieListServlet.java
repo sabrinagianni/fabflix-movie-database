@@ -37,6 +37,9 @@ public class MovieListServlet extends HttpServlet {
         try (Connection conn = dataSource.getConnection()) {
             String genre = request.getParameter("genre");
             String title = request.getParameter("title");
+            String year = request.getParameter("year");
+            String director = request.getParameter("director");
+            String star = request.getParameter("star");
             String sort = request.getParameter("sort");
             int limit = Integer.parseInt(request.getParameter("limit"));
             int page = Integer.parseInt(request.getParameter("page"));
@@ -72,6 +75,21 @@ public class MovieListServlet extends HttpServlet {
                     filters.add("m.title LIKE ?");
                     params.add(title + "%");
                 }
+            }
+
+            if (year != null && !year.isEmpty()) {
+                filters.add("m.year = ?");
+                params.add(year);
+            }
+
+            if (director != null && !director.isEmpty()) {
+                filters.add("m.director LIKE ?");
+                params.add("%" + director + "%");
+            }
+
+            if (star != null && !star.isEmpty()) {
+                filters.add("s.name LIKE ?");
+                params.add("%" + star + "%");
             }
 
             if (!filters.isEmpty()) {
