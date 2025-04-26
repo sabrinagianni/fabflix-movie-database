@@ -23,13 +23,13 @@ public class CartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DataSource dataSource;
 
-    public static class cartDisplay{
+    public static class CartDisplay{
         private String movieId;
         private String title;
         private int quantity;
         private double price;
 
-        public cartDisplay(String movieId, String title, int quantity, double price) {
+        public CartDisplay(String movieId, String title, double price) {
             this.movieId = movieId;
             this.title = title;
             this.quantity = 1;
@@ -63,7 +63,7 @@ public class CartServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        HashMap<String, cartDisplay> cart = (HashMap<String, cartDisplay>) session.getAttribute("cart");
+        HashMap<String, CartDisplay> cart = (HashMap<String, CartDisplay>) session.getAttribute("cart");
 
         if (cart == null){
             cart = new HashMap<>();
@@ -71,7 +71,7 @@ public class CartServlet extends HttpServlet {
         }
 
         JsonArray jsonArray = new JsonArray();
-        for(cartDisplay cd : cart.values()){
+        for(CartDisplay cd : cart.values()){
             jsonArray.add(cd.makeJsonObject());
         }
         response.setContentType("application/json");
@@ -85,7 +85,7 @@ public class CartServlet extends HttpServlet {
         double priceInDouble = Double.parseDouble(priceInString);
 
         HttpSession session = request.getSession();
-        HashMap<String, cartDisplay> cart = (HashMap<String, cartDisplay>) session.getAttribute("cart");
+        HashMap<String, CartDisplay> cart = (HashMap<String, CartDisplay>) session.getAttribute("cart");
 
         if (cart == null){
             cart = new HashMap<>();
@@ -95,7 +95,7 @@ public class CartServlet extends HttpServlet {
         if (cart.containsKey(movieId)){
             cart.get(movieId).increaseQuantity();
         } else {
-            cart.put(movieId, new cartDisplay(movieId, title, priceInDouble));
+            cart.put(movieId, new CartDisplay(movieId, title, priceInDouble));
         }
 
         JsonObject newJsonObject = new JsonObject();
@@ -109,7 +109,7 @@ public class CartServlet extends HttpServlet {
         int quantityInt = Integer.parseInt(quantity);
 
         HttpSession session = request.getSession();
-        HashMap<String, cartDisplay> cart = (HashMap<String, cartDisplay>) session.getAttribute("cart");
+        HashMap<String, CartDisplay> cart = (HashMap<String, CartDisplay>) session.getAttribute("cart");
 
         if (cart == null){
             cart = new HashMap<>();
@@ -117,7 +117,7 @@ public class CartServlet extends HttpServlet {
         }
 
         if (cart.containsKey(movieId)){
-            cartDisplay cd = cart.get(movieId);
+            CartDisplay cd = cart.get(movieId);
             if(quantityInt > 0){
                 cd.quantity = quantityInt;
             } else {
@@ -134,7 +134,7 @@ public class CartServlet extends HttpServlet {
         String movieId = request.getParameter("movieId");
 
         HttpSession session = request.getSession();
-        HashMap<String, cartDisplay> cart = (HashMap<String, cartDisplay>) session.getAttribute("cart");
+        HashMap<String, CartDisplay> cart = (HashMap<String, CartDisplay>) session.getAttribute("cart");
 
         if (cart != null){
             cart.remove(movieId);
