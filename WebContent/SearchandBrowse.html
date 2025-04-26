@@ -9,18 +9,24 @@
 <body>
 <h1>Search and Browse a Movie</h1>
 <form id="search-and-browse">
-  <input name="title" placeholder="Title">
-  <input name="year" placeholder="Year">
-  <input name="director" placeholder="Director">
-  <input name="star" placeholder="Star">
+  <div class="form-row">
+    <input name="title" placeholder="Title">
+    <input name="year" placeholder="Year">
+  </div>
+  <div class="form-row">
+    <input name="director" placeholder="Director">
+    <input name="star" placeholder="Star">
+  </div>
   <input type="submit" value="Search">
 </form>
 
 <div id="browse-by-genre"></div>
 <div id="browse-by-title"></div>
 
-<button onclick="location.href='cart.html'">Checkout</button>
-<button onclick="logout()">Logout</button>
+<div id="button-container">
+  <button onclick="location.href='cart.html'">Checkout</button>
+  <button onclick="logout()">Logout</button>
+</div>
 
 <script src="js/searchandbrowse.js"></script>
 

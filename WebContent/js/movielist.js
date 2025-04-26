@@ -66,7 +66,8 @@ function addToCart(movieId, title) {
 function showMessage(message, isError = false) {
     const messageDiv = document.getElementById("cart-message");
     messageDiv.textContent = message;
-    messageDiv.style.color = isError ? "red" : "green";
+    messageDiv.style.color = isError ? "red" : "rgba(42, 177, 105, 0.71)"; // Lime green
+    messageDiv.style.animation = "fadeInOut 2s ease-in-out";
 
     setTimeout(() => {
         messageDiv.textContent = "";
@@ -98,7 +99,7 @@ function handleMovieResult(resultData) {
         rowHTML += `<td>${starsHTML}</td>`;
 
         rowHTML += `<td>${movie["rating"]}</td>`;
-        rowHTML += `<td><button onclick="addToCart('${movie["id"]}', '${movie["title"]}')">Add to Shopping Cart</button></td>`;
+        rowHTML += `<td><button class="add-to-cart-btn" onclick="addToCart('${movie["id"]}', '${movie["title"]}')">Add to Shopping Cart</button></td>`;
         rowHTML += "</tr>";
 
         movieTableBodyElement.append(rowHTML);
