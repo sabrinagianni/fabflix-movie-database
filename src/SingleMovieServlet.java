@@ -40,16 +40,18 @@ public class SingleMovieServlet extends HttpServlet {
 
         try (Connection conn = dataSource.getConnection()) {
             String query = "SELECT m.id, m.title, m.year, m.director, r.rating, " +
-                    "GROUP_CONCAT(DISTINCT g.name) AS genres, " +
-                    "GROUP_CONCAT(DISTINCT s.name, ':', s.id) AS stars " +
+                    "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name) AS genres, " +
+                    "GROUP_CONCAT(DISTINCT CONCAT(s.name, ':', s.id, ':', IFNULL(sc.count, 0)) " +
+                    "ORDER BY sc.count DESC, s.name ASC SEPARATOR ',') AS stars " +
                     "FROM movies m " +
+                    "LEFT JOIN ratings r ON m.id = r.movieId " +
                     "LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
                     "LEFT JOIN genres g ON gim.genreId = g.id " +
                     "LEFT JOIN stars_in_movies sim ON m.id = sim.movieId " +
                     "LEFT JOIN stars s ON sim.starId = s.id " +
-                    "LEFT JOIN ratings r ON m.id = r.movieId " +
-                    "WHERE m.id = ? " +
-                    "GROUP BY m.id";
+                    "LEFT JOIN (SELECT starId, COUNT(*) AS count FROM stars_in_movies GROUP BY starId) sc ON s.id = sc.starId " +
+                    "WHERE m.id = ? GROUP BY m.id";
+
 
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, movieId);
@@ -87,10 +89,11 @@ public class SingleMovieServlet extends HttpServlet {
                 if (stars != null) {
                     for (String star : stars.split(",")) {
                         String[] starInfo = star.split(":");
-                        if (starInfo.length == 2) {
+                        if (starInfo.length == 3) {
                             JsonObject starJson = new JsonObject();
                             starJson.addProperty("name", starInfo[0].trim());
                             starJson.addProperty("id", starInfo[1].trim());
+                            starJson.addProperty("count", Integer.parseInt(starInfo[2].trim()));
                             starsArray.add(starJson);
                         }
                     }

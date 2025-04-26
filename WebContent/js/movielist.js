@@ -16,6 +16,24 @@ function getParams() {
     };
 }
 
+function saveSessionParams() {
+    const params = getParams();
+    return $.ajax({
+        type: "POST",
+        url: "api/save-session-params",
+        data: params
+    });
+}
+
+function saveCurrentListParams() {
+    const params = getParams();
+    $.ajax({
+        method: "POST",
+        url: "api/save-session-params",
+        data: params
+    });
+}
+
 function fetchMovies() {
     const params = getParams();
     const queryString = new URLSearchParams(params).toString();
@@ -36,7 +54,8 @@ function handleMovieResult(resultData) {
     resultData.forEach(movie => {
         let rowHTML = "<tr>";
 
-        rowHTML += `<td><a href='single_movie.html?id=${movie["id"]}'>${movie["title"]}</a></td>`;
+        // rowHTML += `<td><a href="single_movie.html?id=${movie["id"]}" onclick="saveSessionParams()">${movie["title"]}</a></td>`;
+        rowHTML += `<td><a href="#" class="movie-link" data-id="${movie["id"]}">${movie["title"]}</a></td>`;
         rowHTML += `<td>${movie["year"]}</td>`;
         rowHTML += `<td>${movie["director"]}</td>`;
 
@@ -45,7 +64,8 @@ function handleMovieResult(resultData) {
         rowHTML += `<td>${genresHTML}</td>`;
 
         let starsHTML = movie["stars"].slice(0, 3).map(star =>
-            `<a href="single-star.html?id=${star["id"]}">${star["name"]}</a>`).join(", ");
+            // `<a href="single-star.html?id=${star["id"]}">${star["name"]}</a>`).join(", ");
+            `<a href="#" class="star-link" data-id="${star["id"]}">${star["name"]}</a>`).join(", ");
         rowHTML += `<td>${starsHTML}</td>`;
 
         rowHTML += `<td>${movie["rating"]}</td>`;
@@ -53,6 +73,38 @@ function handleMovieResult(resultData) {
 
         movieTableBodyElement.append(rowHTML);
     });
+
+
+    $(".movie-link").on("click", function (e) {
+        e.preventDefault();
+        const movieId = $(this).data("id");
+        saveSessionParams().then(() => {
+            window.location.href = `single_movie.html?id=${movieId}`;
+        });
+    });
+
+    $(".star-link").on("click", function (e) {
+        e.preventDefault();
+        const starId = $(this).data("id");
+        saveSessionParams().then(() => {
+            window.location.href = `single-star.html?id=${starId}`;
+        });
+    });
+
+    // $(".movie-link").click(function (e) {
+    //     e.preventDefault();
+    //     const movieId = $(this).data("id");
+    //     saveCurrentListParams();
+    //     window.location.href = `single_movie.html?id=${movieId}`;
+    // });
+    //
+    // $(".star-link").click(function (e) {
+    //     e.preventDefault();
+    //     const starId = $(this).data("id");
+    //     saveCurrentListParams();
+    //     window.location.href = `single-star.html?id=${starId}`;
+    // });
+
     $("#page_number").text(`Page ${currentPage}`);
 }
 
