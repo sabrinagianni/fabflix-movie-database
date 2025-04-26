@@ -73,6 +73,7 @@ public class PaymentServlet extends HttpServlet {
                 session.removeAttribute("cart");
 
                 responseJsonObject.addProperty("status", "success");
+                responseJsonObject.addProperty("message", "Payment Successful!");
             } else {
                 responseJsonObject.addProperty("status", "fail");
                 responseJsonObject.addProperty("message", "Invalid credit card information!");
@@ -81,12 +82,12 @@ public class PaymentServlet extends HttpServlet {
             rs.close();
             statement.close();
         } catch (Exception e) {
-            JsonObject error = new JsonObject();
-            error.addProperty("message", "Server error");
-            response.getWriter().write(error.toString());
-            return;
+            e.printStackTrace();
+            responseJsonObject.addProperty("status", "fail");
+            responseJsonObject.addProperty("message", "Server error");
         }
-
+        response.setStatus(200);
+        response.setContentType("application/json");
         response.getWriter().write(responseJsonObject.toString());
     }
 }
