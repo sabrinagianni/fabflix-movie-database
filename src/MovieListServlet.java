@@ -48,7 +48,7 @@ public class MovieListServlet extends HttpServlet {
 
             StringBuilder query = new StringBuilder(
 
-                    "SELECT m.id, m.title, m.year, m.director, r.rating, " +
+                    "SELECT DISTINCT m.id, m.title, m.year, m.director, r.rating, " +
                             "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name SEPARATOR ', ') AS genres, " +
                             "GROUP_CONCAT(DISTINCT CONCAT(s.id, ':', s.name)" +
                             "ORDER BY IFNULL(sc.movie_count, 0) DESC, s.name ASC SEPARATOR ', ') AS stars " +

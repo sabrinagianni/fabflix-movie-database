@@ -1,7 +1,5 @@
 # 2025-spring-cs-122b
 
-Sabrina Pukarta : Made Movie List page and Single Movie Servlet
+Sabrina Pukarta : Search and Browse, Shopping Cart
 
-Julia Tjia : Made Single Star page and Single Movie js
-
-https://youtu.be/uwVJOZBdh6M
+Julia Tjia : Login, Extended Movie List
