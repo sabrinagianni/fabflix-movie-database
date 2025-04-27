@@ -24,3 +24,22 @@ function submitPaymentForm(event) {
 }
 
 paymentForm.submit(submitPaymentForm);
+
+function paymentTotal() {
+    $.ajax("api/cart", {
+        method: "GET",
+        success: function(cartData) {
+            let total = 0;
+            cartData.forEach(item => {
+                total += item.price * item.quantity;
+            });
+
+            $("#pay-total").text(`Total Price: $${total.toFixed(2)}`);
+        },
+        error: function() {
+            $("#pay-total").text("Failed to load cart.");
+        }
+    });
+}
+
+paymentTotal();

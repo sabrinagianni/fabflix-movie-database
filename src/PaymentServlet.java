@@ -40,6 +40,14 @@ public class PaymentServlet extends HttpServlet {
         String cardNumber = request.getParameter("cardNumber");
         String expiration = request.getParameter("expiration");
 
+        if (!expiration.matches("\\d{4}/\\d{2}/\\d{2}")) {
+            JsonObject errorJson = new JsonObject();
+            errorJson.addProperty("status", "fail");
+            errorJson.addProperty("message", "Expiration date format must be YYYY/MM/DD.");
+            response.getWriter().write(errorJson.toString());
+            return;
+        }
+
         try (Connection conn = dataSource.getConnection()) {
             String query = "SELECT * FROM creditcards WHERE id = ? AND firstName = ? AND lastName = ? AND expiration = ?";
             PreparedStatement statement = conn.prepareStatement(query);
@@ -69,7 +77,6 @@ public class PaymentServlet extends HttpServlet {
                     }
                 }
 
-                // Clear the cart after successful checkout
                 session.removeAttribute("cart");
 
                 responseJsonObject.addProperty("status", "success");
