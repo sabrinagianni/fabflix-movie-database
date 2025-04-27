@@ -1,3 +1,22 @@
+function checkLogin() {
+    $.ajax({
+        method: "GET",
+        url: "api/get-session-params",
+        success: function(data) {
+            // If session has no user info (no sort at least), assume not logged in
+            if (!data || Object.keys(data).length === 0) {
+                window.location.href = "login.html";
+            } else {
+                showMyCart();
+            }
+        },
+        error: function() {
+            // If session fetch fails, redirect to login
+            window.location.href = "login.html";
+        }
+    });
+}
+
 function showMyCart() {
     $.ajax({
         method: "GET",
@@ -85,4 +104,7 @@ function proceedToCheckout() {
     window.location.href = "payment.html";
 }
 
-showMyCart();
+// showMyCart();
+$(document).ready(() => {
+    checkLogin(); // Check login first before showing anything
+});
