@@ -5,9 +5,9 @@ Sabrina Pukarta : Search and Browse, Shopping Cart
 Julia Tjia : Login, Extended Movie List/Single Pages/Jumping Functionality
 
 We used LIKE to help search for movies by title, director, or star name.
-m.title LIKE ? lets us find movies where the title contains the search keyword anywhere inside it
-m.director LIKE ? also helps support substring search for a director's name
-s.name LIKE ? helps us find the star with the given search input
+m.title LIKE ? lets us find movies where the title contains the search keyword anywhere inside it.
+m.director LIKE ? also helps support substring search for a director's name.
+s.name LIKE ? helps us find the star with the given search input.
 We also used % to help with the substring matching.
 So we used LIKE to enable the pattern matching and % for the substring matching itself.
 For *, we match it REGEXP non-alphanumeric characters so the search will return everything else but alphanumeric.
