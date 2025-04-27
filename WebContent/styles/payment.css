@@ -91,4 +91,5 @@ form#payment-form button:hover {
     text-align: center;
     font-weight: bold;
     color: #FF6F61;
+    font-size: 1rem;
 }
