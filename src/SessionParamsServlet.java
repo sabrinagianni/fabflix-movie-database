@@ -20,7 +20,7 @@ public class SessionParamsServlet extends HttpServlet {
         JsonObject responseJson = new JsonObject();
         responseJson.addProperty("genre", genre != null ? genre : "");
         responseJson.addProperty("title", title != null ? title : "");
-        responseJson.addProperty("sort", sort != null ? sort : "ratingasc_titleasc");
+        responseJson.addProperty("sort", sort != null ? sort : "titleasc_ratingasc");
         responseJson.addProperty("limit", limit != null ? limit : 10);
         responseJson.addProperty("page", page != null ? page : 1);
 
