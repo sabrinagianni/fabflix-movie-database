@@ -64,7 +64,8 @@ public class MovieListServlet extends HttpServlet {
             List<String> params = new ArrayList<>();
 
             if (genre != null && !genre.isEmpty()) {
-                filters.add("g.name = ?");
+//                filters.add("g.name = ?");
+                filters.add("EXISTS (SELECT 1 FROM genres_in_movies gm2 JOIN genres g2 ON gm2.genreId = g2.id WHERE gm2.movieId = m.id AND g2.name = ?)");
                 params.add(genre);
             }
 
@@ -73,7 +74,7 @@ public class MovieListServlet extends HttpServlet {
                     filters.add("m.title REGEXP '^[^a-zA-Z0-9]'");
                 } else {
                     filters.add("m.title LIKE ?");
-                    params.add(title + "%");
+                    params.add("%" + title + "%");
                 }
             }
 
@@ -126,7 +127,7 @@ public class MovieListServlet extends HttpServlet {
                         query.append("r.rating DESC, m.title DESC ");
                         break;
                     default:
-                        query.append("r.rating DESC, m.title ASC "); // fallback
+                        query.append("m.title ASC, r.rating ASC "); // fallback
                 }
             }
 

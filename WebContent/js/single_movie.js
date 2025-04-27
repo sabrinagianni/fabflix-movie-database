@@ -15,6 +15,17 @@ function getParameterByName(target) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function showMessage(message, isError = false) {
+    const messageDiv = document.getElementById("cart-message");
+    messageDiv.textContent = message;
+    messageDiv.style.color = isError ? "red" : "rgba(42, 177, 105, 0.71)"; // lime green for success
+    messageDiv.style.animation = "fadeInOut 2s ease-in-out";
+
+    setTimeout(() => {
+        messageDiv.textContent = "";
+    }, 2000);
+}
+
 function createBackButton() {
     $.get("api/get-session-params", function(data) {
         const url = new URLSearchParams();
@@ -54,6 +65,31 @@ function handleResult(resultData) {
         titleEl.appendChild(yearEl);
         // Append the h1 to the container div
         titleDiv.appendChild(titleEl);
+
+        const addToCartDiv = document.getElementById("add-to-cart-button");
+        const addToCartButton = document.createElement("button");
+        addToCartButton.className = "add-to-cart-btn";
+        addToCartButton.textContent = "Add to Shopping Cart";
+
+        addToCartButton.addEventListener("click", function() {
+            $.ajax({
+                method: "POST",
+                url: "api/cart",
+                data: {
+                    movieId: movie.id,
+                    title: movie.title,
+                    price: 19.99
+                },
+                success: function() {
+                    showMessage("Added to cart!");
+                },
+                error: function() {
+                    showMessage("Failed to add to cart.",);
+                }
+            });
+        });
+
+        addToCartDiv.appendChild(addToCartButton);
 
         // Build table row
         let row = document.createElement("tr");

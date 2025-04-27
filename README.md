@@ -2,4 +2,4 @@
 
 Sabrina Pukarta : Search and Browse, Shopping Cart
 
-Julia Tjia : Login, Extended Movie List
+Julia Tjia : Login, Extended Movie List/Single Pages/Jumping Functionality

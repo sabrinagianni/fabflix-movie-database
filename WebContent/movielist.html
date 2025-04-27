@@ -25,18 +25,19 @@
 
 <div id="cart-button-container">
     <button id="view-cart-button"  onclick="location.href='cart.html'">View Cart</button>
+    <button id="checkout-button" onclick="location.href='cart.html'">Checkout</button>
 </div>
 
 <div class="controls">
     <label for="sort">Sort by:</label>
     <select id="sort">
         <option value="titleasc_ratingdesc">Title ↑, Rating ↓</option>
-        <option value="titleasc_ratingasc">Title ↑, Rating ↑</option>
+        <option value="titleasc_ratingasc" selected>Title ↑, Rating ↑</option>
         <option value="titledesc_ratingasc">Title ↓, Rating ↑</option>
         <option value="titledesc_ratingdesc">Title ↓, Rating ↓</option>
         <option value="ratingasc_titleasc">Rating ↑, Title ↑</option>
         <option value="ratingasc_titledesc">Rating ↑, Title ↓</option>
-        <option value="ratingdesc_titleasc" selected>Rating ↓, Title ↑</option>
+        <option value="ratingdesc_titleasc">Rating ↓, Title ↑</option>
         <option value="ratingdesc_titledesc">Rating ↓, Title ↓</option>
     </select>
 
@@ -59,6 +60,7 @@
             <th>Genres</th>
             <th>Stars</th>
             <th>Rating</th>
+            <th>Cart</th>
         </tr>
         </thead>
         <tbody id="movie_table_body"></tbody>

@@ -10,6 +10,9 @@ function getParams() {
     return {
         genre: urlParams.get("genre") || "",
         title: urlParams.get("title") || "",
+        year: urlParams.get("year") || "",
+        director: urlParams.get("director") || "",
+        star: urlParams.get("star") || "",
         sort: $("#sort").val(),
         limit: $("#numpage").val(),
         page: currentPage
@@ -121,21 +124,20 @@ function handleMovieResult(resultData) {
         });
     });
 
-    // $(".movie-link").click(function (e) {
-    //     e.preventDefault();
-    //     const movieId = $(this).data("id");
-    //     saveCurrentListParams();
-    //     window.location.href = `single_movie.html?id=${movieId}`;
-    // });
-    //
-    // $(".star-link").click(function (e) {
-    //     e.preventDefault();
-    //     const starId = $(this).data("id");
-    //     saveCurrentListParams();
-    //     window.location.href = `single-star.html?id=${starId}`;
-    // });
-
     $("#page_number").text(`Page ${currentPage}`);
+
+    if (currentPage === 1) {
+        $("#prev").prop("disabled", true);
+    } else {
+        $("#prev").prop("disabled", false);
+    }
+
+    const limit = parseInt($("#numpage").val());
+    if (resultData.length < limit) {
+        $("#next").prop("disabled", true);
+    } else {
+        $("#next").prop("disabled", false);
+    }
 }
 
 $("#sort, #numpage").on("change", () => {
@@ -156,5 +158,29 @@ $("#next").on("click", () => {
 });
 
 $(document).ready(() => {
-    fetchMovies();
+    $.ajax({
+        method: "GET",
+        url: "api/get-session-params",
+        dataType: "json",
+        success: function(sessionData) {
+            console.log("Session data:", sessionData);
+
+            // Set sort and numpage dropdowns based on session
+            if (sessionData.sort) {
+                $("#sort").val(sessionData.sort);
+            }
+            if (sessionData.limit) {
+                $("#numpage").val(sessionData.limit);
+            }
+
+            // Set currentPage from session
+            currentPage = sessionData.page || 1;
+
+            fetchMovies();
+        },
+        error: function() {
+            fetchMovies();
+        }
+    });
 });
+

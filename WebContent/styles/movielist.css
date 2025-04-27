@@ -100,6 +100,15 @@ a:hover {
     color: #1A1A2E;
 }
 
+.pagination button:disabled {
+    background-color: #A9A9A9;
+    color: #666666;
+    border-color: #888888;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
 #page_number {
     font-family: Garamond, sans-serif;
     font-size: 1.2rem;
@@ -112,7 +121,7 @@ a:hover {
     margin-top: 1rem;
 }
 
-#view-cart-button {
+#view-cart-button, #checkout-button {
     padding: 10px 20px;
     background-color: #2F4F4F;
     color: white;
@@ -131,6 +140,12 @@ a:hover {
     transform: scale(1.05);
 }
 
+#checkout-button:hover {
+    background-color: #5d6f71;
+    color: #1A1A2E;
+    transform: scale(1.05);
+ }
+
 .add-to-cart-btn {
     padding: 8px 12px;
     background-color: #2F4F4F;
@@ -145,7 +160,7 @@ a:hover {
 }
 
 .add-to-cart-btn:hover {
-    background-color: #5d6f71;
+    background-color: #485659;
     color: #1A1A2E;
     transform: scale(1.05);
 }
