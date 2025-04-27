@@ -72,6 +72,9 @@ public class MovieListServlet extends HttpServlet {
             if (title != null && !title.isEmpty()) {
                 if (title.equals("*")) {
                     filters.add("m.title REGEXP '^[^a-zA-Z0-9]'");
+                } else if (title.length() == 1) {
+                    filters.add("UPPER(SUBSTRING(m.title, 1, 1)) = ?");
+                    params.add(title.toUpperCase());
                 } else {
                     filters.add("m.title LIKE ?");
                     params.add("%" + title + "%");
