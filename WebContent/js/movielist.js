@@ -7,13 +7,14 @@ let currentPage = 1;
 
 function getParams() {
     const urlParams = new URLSearchParams(window.location.search);
+    const sort = $("#sort").val() || "titleasc_ratingasc";
     return {
         genre: urlParams.get("genre") || "",
         title: urlParams.get("title") || "",
         year: urlParams.get("year") || "",
         director: urlParams.get("director") || "",
         star: urlParams.get("star") || "",
-        sort: $("#sort").val(),
+        sort: sort, /*$("#sort").val(),*/
         limit: $("#numpage").val(),
         page: currentPage
     };
@@ -168,6 +169,8 @@ $(document).ready(() => {
             // Set sort and numpage dropdowns based on session
             if (sessionData.sort) {
                 $("#sort").val(sessionData.sort);
+            } else {
+                $("#sort").val("titleasc_ratingasc");
             }
             if (sessionData.limit) {
                 $("#numpage").val(sessionData.limit);
@@ -179,6 +182,9 @@ $(document).ready(() => {
             fetchMovies();
         },
         error: function() {
+            $("#sort").val("titleasc_ratingasc");
+            $("#numpage").val("10");
+            currentPage = 1;
             fetchMovies();
         }
     });
