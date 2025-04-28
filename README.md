@@ -30,3 +30,7 @@ if (star != null && !star.isEmpty()) {
 filters.add("s.name LIKE ?");
 params.add("%" + star + "%");
 }
+
+DEMO VIDEO LINK: https://youtu.be/9HoAo8cbJSs
+
+AWS INSTANCE IP: 3.138.118.136
