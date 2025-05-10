@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import java.io.PrintWriter;
 
 
@@ -39,21 +39,28 @@ public class LoginServlet extends HttpServlet {
         try (Connection conn = dataSource.getConnection()) {
             request.getServletContext().log("Connected to database");
 
-            String query = "SELECT * FROM customers WHERE email = ? AND password = ?";
+            String query = "SELECT * FROM customers WHERE email = ?" /*AND password = ?*/;
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, email);
-            statement.setString(2, password);
+//            statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                int customerId = rs.getInt("id");
-                request.getSession().setAttribute("user", new User(email));
-                request.getSession().setAttribute("user_id", customerId);
-                json.addProperty("status", "success");
-                json.addProperty("message", "success");
+                String encryptedPassword = rs.getString("password");
+                boolean passwordMatch = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
+                if (passwordMatch) {
+                    int customerId = rs.getInt("id");
+                    request.getSession().setAttribute("user", new User(email));
+                    request.getSession().setAttribute("user_id", customerId);
+                    json.addProperty("status", "success");
+                    json.addProperty("message", "success");
+                } else {
+                    json.addProperty("status", "fail");
+                    json.addProperty("message", "Invalid email or password");
+                }
             } else {
                 json.addProperty("status", "fail");
-                json.addProperty("message", "Invalid email or password");
+                json.addProperty("message", "No account with that email");
             }
 
             rs.close();
