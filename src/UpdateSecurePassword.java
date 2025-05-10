@@ -17,7 +17,7 @@ public class UpdateSecurePassword {
         // change the customers table password column from VARCHAR(20) to VARCHAR(128)
         String alterQuery = "ALTER TABLE customers MODIFY COLUMN password VARCHAR(128)";
         PreparedStatement alterStatement = connection.prepareStatement(alterQuery);
-        alterStatement.executeUpdate();
+        int alterResult = alterStatement.executeUpdate();
         alterStatement.close();
         System.out.println("altering customers table schema completed, " + alterResult + " rows affected");
 
@@ -55,12 +55,13 @@ public class UpdateSecurePassword {
         System.out.println("updating password");
         int count = 0;
         for (String updateQuery : updateQueryList) {
-            int updateResult = statement.executeUpdate(updateQuery);
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            int updateResult = updateStatement.executeUpdate();
+            updateStatement.close();
             count += updateResult;
         }
         System.out.println("updating password completed, " + count + " rows affected");
 
-        statement.close();
         connection.close();
 
         System.out.println("finished");
