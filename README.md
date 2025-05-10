@@ -1,8 +1,8 @@
 # 2025-spring-cs-122b
 
-Sabrina Pukarta : Search and Browse, Shopping Cart
+Sabrina Pukarta : reCAPTCHA, HTTPS, preparedstatement, encrypted password
 
-Julia Tjia : Login, Extended Movie List/Single Pages/Jumping Functionality
+Julia Tjia : preparedstatement, encrypted password servlet backend, dashboard with stored procedure
 
 We used LIKE to help search for movies by title, director, or star name.
 m.title LIKE ? lets us find movies where the title contains the search keyword anywhere inside it.
