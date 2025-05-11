@@ -1,16 +1,43 @@
-$("#employee-login-form").on("submit", function(event) {
+let employee_login_form = $("#employee-login-form");
+
+// function handleEmployeeLoginResult(resultDataString) {
+//     let resultDataJson = JSON.parse(resultDataString);
+//
+//     console.log("handle employee login response");
+//     console.log(resultDataJson);
+//     console.log(resultDataJson["status"]);
+//
+//     if (resultDataJson["status"] === "success") {
+//         window.location.replace("_dashboard_main.html");
+//     } else {
+//         console.log("show error message");
+//         console.log(resultDataJson["message"]);
+//         $("#login_error_message").text(resultDataJson["message"]);
+//     }
+// }
+
+function handleEmployeeLoginResult(resultDataJson) {
+    console.log("handle employee login response");
+    console.log(resultDataJson);
+    console.log(resultDataJson["status"]);
+
+    if (resultDataJson["status"] === "success") {
+        window.location.replace("_dashboard_main.html");
+    } else {
+        console.log("show error message");
+        console.log(resultDataJson["message"]);
+        $("#login_error_message").text(resultDataJson["message"]);
+    }
+}
+
+function submitEmployeeLoginForm(event) {
     event.preventDefault();
 
-    $.ajax({
+    $.ajax("api/employee-login", {
         method: "POST",
-        url: "api/employee-login",
-        data: $(this).serialize(),
-        success: function(response) {
-            if (response.status === "success") {
-                window.location.href = "_dashboard_main.html";
-            } else {
-                $("#login_error_message").text("Login failed: " + response.message);
-            }
-        }
+        data: employee_login_form.serialize(),
+        success: handleEmployeeLoginResult
     });
-});
+}
+
+employee_login_form.submit(submitEmployeeLoginForm);
