@@ -4,7 +4,7 @@
          version="3.1">
     <display-name>Fabflix</display-name>
     <welcome-file-list>
-        <welcome-file>SearchandBrowse.html</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 
     <!-- Register the DataSource defined in META-INF/context.xml -->
@@ -42,4 +42,14 @@
 <!--        <servlet-name>SingleStarServlet</servlet-name>-->
 <!--        <url-pattern>/api/single-star</url-pattern>-->
 <!--    </servlet-mapping>-->
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOnly</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 </web-app>
