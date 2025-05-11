@@ -1,9 +1,6 @@
 let login_form = $("#login_form");
 
-function handleLoginResult(resultDataString) {
-    let resultDataJson = JSON.parse(resultDataString);
-
-
+function handleLoginResult(resultDataJson) {
     console.log("handle login response");
     console.log(resultDataJson);
     console.log(resultDataJson["status"]);
@@ -23,6 +20,7 @@ function submitLoginForm(event) {
     $.ajax("api/login", {
         method: "POST",
         data: login_form.serialize(),
+        dataType: "json",
         success: handleLoginResult
     });
 }

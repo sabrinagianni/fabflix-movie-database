@@ -1,10 +1,13 @@
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
@@ -14,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import java.io.PrintWriter;
+import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
 
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
@@ -28,13 +33,58 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    private boolean verifyRecaptcha(String gRecaptchaResponse) throws Exception {
+        String secret = "6LdelTQrAAAAAKDqNfBaPBsxaFVdJp69mLhccIVJ";
+        URL verifyUrl = new URL("https://www.google.com/recaptcha/api/siteverify");
+
+        HttpsURLConnection conn = (HttpsURLConnection) verifyUrl.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+        conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+        String postParams = "secret=" + secret + "&response=" + gRecaptchaResponse;
+
+        conn.setDoOutput(true);
+        OutputStream outStream = conn.getOutputStream();
+        outStream.write(postParams.getBytes());
+        outStream.flush();
+        outStream.close();
+
+        InputStream inputStream = conn.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+        JsonObject jsonObject = new com.google.gson.Gson().fromJson(inputStreamReader, JsonObject.class);
+        inputStreamReader.close();
+
+        return jsonObject.get("success").getAsBoolean();
+    }
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        response.setContentType("application/json");
-//        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
 
         String email = request.getParameter("username");
         String password = request.getParameter("password");
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        System.out.println("g-recaptcha-response: " + gRecaptchaResponse);
         JsonObject json = new JsonObject();
+
+        try{
+            boolean recaptcha = verifyRecaptcha(gRecaptchaResponse);
+            if(!recaptcha){
+                json.addProperty("status", "fail");
+                json.addProperty("message", "reCAPTCHA verification failed.");
+                out.write(json.toString());
+                return;
+            }
+        }
+        catch (Exception e) {
+            json.addProperty("status", "fail");
+            json.addProperty("message", "Error verifying reCAPTCHA.");
+            out.write(json.toString());
+            return;
+        }
 
         try (Connection conn = dataSource.getConnection()) {
             request.getServletContext().log("Connected to database");
@@ -74,9 +124,11 @@ public class LoginServlet extends HttpServlet {
 //        response.setContentType("application/json");
 //        response.getWriter().write(json.toString());
 
-//        out.write(json.toString());
-//        out.close();
+        System.out.println("Returning JSON: " + json.toString());
+        out.write(json.toString());
+        out.close();
 
-        response.getWriter().write(json.toString());
+//        response.getWriter().write(json.toString());
+//        out.close();
     }
 }
