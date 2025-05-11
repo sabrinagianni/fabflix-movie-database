@@ -5,17 +5,20 @@
     <title>Login to Fabflix</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/login.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <div class="container">
     <h1>Login to Fabflix</h1>
 
-    <form id="login_form" method="post" action="#">
+    <form id="login_form" method="post" action="">
         <label><b>Email</b></label>
         <input name="username" placeholder="Enter Email" type="text" required><br><br>
 
         <label><b>Password</b></label>
         <input name="password" placeholder="Enter Password" type="password" required><br><br>
+
+        <div class="g-recaptcha" data-sitekey="6LdelTQrAAAAAOIKj5rLwNWFCDpIKOVSPMP0DusW"></div><br>
 
         <input type="submit" value="Login">
         <div id="login_error_message"></div>
