@@ -6,14 +6,15 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "DashboardServlet", urlPatterns = "/_dashboard")
+@WebServlet(name = "DashboardServlet", urlPatterns = "/fabflix/_dashboard")
 public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (request.getSession().getAttribute("employee") == null) {
+        if (request.getSession(false) == null || request.getSession().getAttribute("employee") == null) {
             response.sendRedirect("_dashboard.html");
         } else {
-            response.sendRedirect("_dashboard_main.html");
+            request.getRequestDispatcher("_dashboard_main.html").forward(request, response);
         }
     }
 }
+

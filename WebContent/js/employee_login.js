@@ -22,7 +22,7 @@ function handleEmployeeLoginResult(resultDataJson) {
     console.log(resultDataJson["status"]);
 
     if (resultDataJson["status"] === "success") {
-        window.location.replace("_dashboard_main.html");
+        window.location.replace("_dashboard");
     } else {
         console.log("show error message");
         console.log(resultDataJson["message"]);
