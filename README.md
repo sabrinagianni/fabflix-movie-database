@@ -1,6 +1,6 @@
 # 2025-spring-cs-122b
 
-Sabrina Pukarta : reCAPTCHA, HTTPS, preparedstatement, encrypted password
+Sabrina Pukarta : reCAPTCHA, HTTPS, preparedstatement, encrypted password, Parser
 
 Julia Tjia : preparedstatement, encrypted password servlet backend, dashboard with stored procedure
 
@@ -33,4 +33,4 @@ params.add("%" + star + "%");
 
 DEMO VIDEO LINK: https://youtu.be/9HoAo8cbJSs
 
-AWS INSTANCE IP: 3.138.118.136
+AWS INSTANCE IP: 18.217.138.184
