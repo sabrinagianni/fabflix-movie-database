@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "DashboardServlet", urlPatterns = "/fabflix/_dashboard")
+@WebServlet(name = "DashboardServlet", urlPatterns = "/_dashboard")
 public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
