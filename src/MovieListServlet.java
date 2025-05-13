@@ -53,7 +53,7 @@ public class MovieListServlet extends HttpServlet {
                             "GROUP_CONCAT(DISTINCT CONCAT(s.id, ':', s.name)" +
                             "ORDER BY IFNULL(sc.movie_count, 0) DESC, s.name ASC SEPARATOR ', ') AS stars " +
                             "FROM movies m " +
-                            "JOIN ratings r ON m.id = r.movieId " +
+                            "LEFT JOIN ratings r ON m.id = r.movieId " +
                             "LEFT JOIN genres_in_movies gm ON m.id = gm.movieId " +
                             "LEFT JOIN genres g ON gm.genreId = g.id " +
                             "LEFT JOIN stars_in_movies sm ON m.id = sm.movieId " +
@@ -155,7 +155,8 @@ public class MovieListServlet extends HttpServlet {
                 movie.addProperty("title", rs.getString("title"));
                 movie.addProperty("year", rs.getString("year"));
                 movie.addProperty("director", rs.getString("director"));
-                movie.addProperty("rating", rs.getString("rating"));
+                String rating = rs.getString("rating");
+                movie.addProperty("rating", rating != null ? rating : "N/A");
 
                 JsonArray genresArray = new JsonArray();
                 if (rs.getString("genres") != null) {
