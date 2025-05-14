@@ -94,4 +94,4 @@ Parsed file: casts124.xml
 
 DEMO VIDEO LINK: https://youtu.be/9HoAo8cbJSs
 
-AWS INSTANCE IP: 18.217.138.184
+AWS INSTANCE IP: 3.141.47.152
