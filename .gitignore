@@ -183,4 +183,4 @@ target/*.war
 target/
 >>>>>>> singlemovieservlet
 databases/movie-data.sql
-logs/
+inconsistencies.txt
