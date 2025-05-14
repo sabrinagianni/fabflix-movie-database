@@ -53,6 +53,9 @@ Inserted Genres_in_Movies: 9850
 Inserted Stars_in_Movies: 30373
 
 
-DEMO VIDEO LINK: https://youtu.be/9HoAo8cbJSs
+DEMO VIDEO LINK: 
+For some reason, both my partner and my instance randomly stopped working when we were trying to film the demo video...
+We tried things like restarting, redoing the ssh, but nothing seemed to work, and we were not sure what to do since this isn't
+something we can control as we found out others were going through a similar situation.
 
 AWS INSTANCE IP: 18.217.138.184
