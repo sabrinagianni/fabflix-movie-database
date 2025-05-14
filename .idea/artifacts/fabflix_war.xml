@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="fabflix:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="fabflix.war" />
-  </artifact>
-</component>
