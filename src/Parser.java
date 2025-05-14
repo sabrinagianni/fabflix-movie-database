@@ -234,7 +234,7 @@ public class Parser extends DefaultHandler {
             e.printStackTrace();
         }
 
-        try (PrintWriter writer = new PrintWriter("logs/inconsistencies.txt")) {
+        try (PrintWriter writer = new PrintWriter("inconsistencies.txt")) {
             for (String s : inconsistencyLog) {
                 writer.println(s);
             }
