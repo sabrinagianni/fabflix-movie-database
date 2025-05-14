@@ -3,17 +3,6 @@ import java.sql.*;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 public class VerifyPassword {
-
-    /*
-     * After you update the passwords in customers table,
-     *   you can use this program as an example to verify the password.
-     *
-     * Verify the password is simple:
-     * success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
-     *
-     * Note that you need to use the same StrongPasswordEncryptor when encrypting the passwords
-     *
-     */
     public static void main(String[] args) throws Exception {
 
         System.out.println(verifyCredentials("a@email.com", "a2"));
@@ -38,10 +27,7 @@ public class VerifyPassword {
 
         boolean success = false;
         if (rs.next()) {
-            // get the encrypted password from the database
             String encryptedPassword = rs.getString("password");
-
-            // use the same encryptor to compare the user input password with encrypted password stored in DB
             success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
         }
 

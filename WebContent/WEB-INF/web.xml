@@ -42,6 +42,15 @@
 <!--        <servlet-name>SingleStarServlet</servlet-name>-->
 <!--        <url-pattern>/api/single-star</url-pattern>-->
 <!--    </servlet-mapping>-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Dashboard</web-resource-name>
+            <url-pattern>/_dashboard</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 
     <security-constraint>
         <web-resource-collection>
