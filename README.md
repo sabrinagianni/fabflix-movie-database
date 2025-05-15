@@ -58,4 +58,4 @@ For some reason, both my partner and my instance randomly stopped working when w
 We tried things like restarting, redoing the ssh, but nothing seemed to work, and we were not sure what to do since this isn't
 something we can control as we found out others were going through a similar situation.
 
-AWS INSTANCE IP: 3.141.47.152
+AWS INSTANCE IP: 3.138.134.172
