@@ -51,6 +51,7 @@ Inserted Genres: 125
 Inserted Stars: 6863
 Inserted Genres_in_Movies: 9850
 Inserted Stars_in_Movies: 30373
+--Full inconsistency report is shown in demo video--
 
 
 DEMO VIDEO LINK: 
