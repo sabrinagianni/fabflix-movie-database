@@ -30,6 +30,13 @@ public class MovieListServlet extends HttpServlet {
         }
     }
 
+    // FOR FUZZY SEARCH
+//    private int getThreshold(String input) {
+//        if (input.length() <= 4) return 1;
+//        if (input.length() <= 7) return 2;
+//        return 3;
+//    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
@@ -41,6 +48,7 @@ public class MovieListServlet extends HttpServlet {
             String director = request.getParameter("director");
             String star = request.getParameter("star");
             String sort = request.getParameter("sort");
+            String queryParam = request.getParameter("query");
             int limit = Integer.parseInt(request.getParameter("limit"));
             int page = Integer.parseInt(request.getParameter("page"));
             int offset = (page - 1) * limit;
@@ -63,37 +71,68 @@ public class MovieListServlet extends HttpServlet {
             List<String> filters = new ArrayList<>();
             List<String> params = new ArrayList<>();
 
-            if (genre != null && !genre.isEmpty()) {
-//                filters.add("g.name = ?");
-                filters.add("EXISTS (SELECT 1 FROM genres_in_movies gm2 JOIN genres g2 ON gm2.genreId = g2.id WHERE gm2.movieId = m.id AND g2.name = ?)");
-                params.add(genre);
-            }
+//            ADDED BLOCK TO TEST FUZZY SEARCH -----------------------------------------
+//            if (queryParam != null && !queryParam.trim().isEmpty()) {
+//                String[] tokens = queryParam.trim().split("\\s+");
+//                StringBuilder matchExpr = new StringBuilder();
+//                for (String token : tokens) {
+//                    matchExpr.append("+").append(token).append("* ");
+//                }
+//
+//                // Full-text search clause
+//                filters.add("(MATCH(m.title) AGAINST (? IN BOOLEAN MODE) " +
+//                        "OR m.title LIKE ? " +
+//                        "OR edth(m.title, ?, ?) = 1)");
+//
+//                String matchString = matchExpr.toString().trim();
+//                params.add(matchString);                        // for MATCH
+//                params.add("%" + queryParam + "%");             // for LIKE
+//                params.add(queryParam);                         // for edth
+//                params.add(String.valueOf(getThreshold(queryParam)));  // distance threshold
+//            }
 
-            if (title != null && !title.isEmpty()) {
-                if (title.equals("*")) {
-                    filters.add("m.title REGEXP '^[^a-zA-Z0-9]'");
-                } else if (title.length() == 1) {
-                    filters.add("UPPER(SUBSTRING(m.title, 1, 1)) = ?");
-                    params.add(title.toUpperCase());
-                } else {
-                    filters.add("m.title LIKE ?");
-                    params.add("%" + title + "%");
+            if (queryParam != null && !queryParam.trim().isEmpty()) {
+                String[] tokens = queryParam.trim().split("\\s+");
+                StringBuilder matchExpr = new StringBuilder();
+                for (String token : tokens) {
+                    matchExpr.append("+").append(token).append("* ");
                 }
-            }
+                filters.add("MATCH(m.title) AGAINST (? IN BOOLEAN MODE)");
+                params.add(matchExpr.toString().trim());
+            } else {
 
-            if (year != null && !year.isEmpty()) {
-                filters.add("m.year = ?");
-                params.add(year);
-            }
+                if (genre != null && !genre.isEmpty()) {
+                    //                filters.add("g.name = ?");
+                    filters.add("EXISTS (SELECT 1 FROM genres_in_movies gm2 JOIN genres g2 ON gm2.genreId = g2.id WHERE gm2.movieId = m.id AND g2.name = ?)");
+                    params.add(genre);
+                }
 
-            if (director != null && !director.isEmpty()) {
-                filters.add("m.director LIKE ?");
-                params.add("%" + director + "%");
-            }
+                if (title != null && !title.isEmpty()) {
+                    if (title.equals("*")) {
+                        filters.add("m.title REGEXP '^[^a-zA-Z0-9]'");
+                    } else if (title.length() == 1) {
+                        filters.add("UPPER(SUBSTRING(m.title, 1, 1)) = ?");
+                        params.add(title.toUpperCase());
+                    } else {
+                        filters.add("m.title LIKE ?");
+                        params.add("%" + title + "%");
+                    }
+                }
 
-            if (star != null && !star.isEmpty()) {
-                filters.add("s.name LIKE ?");
-                params.add("%" + star + "%");
+                if (year != null && !year.isEmpty()) {
+                    filters.add("m.year = ?");
+                    params.add(year);
+                }
+
+                if (director != null && !director.isEmpty()) {
+                    filters.add("m.director LIKE ?");
+                    params.add("%" + director + "%");
+                }
+
+                if (star != null && !star.isEmpty()) {
+                    filters.add("s.name LIKE ?");
+                    params.add("%" + star + "%");
+                }
             }
 
             if (!filters.isEmpty()) {
