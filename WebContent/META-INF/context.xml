@@ -9,4 +9,5 @@
               password="My6$Password"
               driverClassName="com.mysql.cj.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb"/>
+<!--    url="jdbc:mysql://<IP>:<PORT>/moviedb?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;cachePrepStmts=true-->
 </Context>
