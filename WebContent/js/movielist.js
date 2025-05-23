@@ -9,6 +9,7 @@ function getParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const sort = $("#sort").val() || "titleasc_ratingasc";
     return {
+        query: urlParams.get("query") || "",
         genre: urlParams.get("genre") || "",
         title: urlParams.get("title") || "",
         year: urlParams.get("year") || "",
@@ -88,8 +89,21 @@ function handleMovieResult(resultData) {
     resultData.forEach(movie => {
         let rowHTML = "<tr>";
 
-        // rowHTML += `<td><a href="single_movie.html?id=${movie["id"]}" onclick="saveSessionParams()">${movie["title"]}</a></td>`;
-        rowHTML += `<td><a href="#" class="movie-link" data-id="${movie["id"]}">${movie["title"]}</a></td>`;
+        // rowHTML += `<td><a href="#" class="movie-link" data-id="${movie["id"]}">${movie["title"]}</a></td>`;
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get("query");
+        let highlightedTitle = movie["title"];
+
+        if (query) {
+            const tokens = query.trim().split(/\s+/);
+            tokens.forEach(token => {
+                const regex = new RegExp(`(${token})`, "gi");
+                highlightedTitle = highlightedTitle.replace(regex, "<mark>$1</mark>");
+            });
+        }
+
+        rowHTML += `<td><a href="#" class="movie-link" data-id="${movie["id"]}">${highlightedTitle}</a></td>`;
+
         rowHTML += `<td>${movie["year"]}</td>`;
         rowHTML += `<td>${movie["director"]}</td>`;
 

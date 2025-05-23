@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome to Fabflix!</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="styles/searchandbrowse.css">
 </head>
 <body>
 <h1>Search and Browse a Movie</h1>
 <form id="search-and-browse">
+  <div class="form-row">
+    <input type="text" name="query" id="autocomplete" placeholder="Search for movies...">
+  </div>
   <div class="form-row">
     <input type="text"  name="title" placeholder="Title">
     <input type="text"  name="year" placeholder="Year">
@@ -29,6 +34,7 @@
 </div>
 
 <script src="js/searchandbrowse.js"></script>
+<script src="js/autocomplete.js"></script>
 
 </body>
 </html>

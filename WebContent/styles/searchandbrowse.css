@@ -163,3 +163,33 @@ form#search-and-browse input[type="submit"]:hover {
     background-color: #007bb8;
     box-shadow: 0 6px 12px rgba(0, 123, 184, 0.4);
 }
+
+.autocomplete-suggestions {
+    background-color: #2F4F4F;
+    border: 1px solid #6684b5;
+    border-radius: 6px;
+    font-family: Garamond, sans-serif;
+    font-size: 1rem;
+    color: white;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.autocomplete-suggestion {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.autocomplete-suggestion:hover,
+.autocomplete-selected {
+    background-color: #5d6f71 !important;
+    color: #1A1A2E !important;
+}
+
+.autocomplete-suggestion mark {
+    color: #5fb9c1;
+    font-weight: bold;
+    background: none;
+    padding: 0;
+}
