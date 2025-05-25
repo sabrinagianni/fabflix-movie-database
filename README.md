@@ -11,7 +11,7 @@
     - ORIGINAL FABFLIX: 3.129.169.14
 
     - #### Collaborations and Work Distribution:
-    - Sabrina Pukarta: JDBC Connection Pooling, MySQL Master-Slave Replication, Scaling Fabflix with a cluster of MySQL/Tomcat and a load balancer
+    - Sabrina Pukarta: JDBC Connection Pooling, MySQL Master-Slave Replication, Scaling Fabflix with a cluster of MySQL/Tomcat and a load balancer, RECAPTCHA
     - Julia Tjia: Full-text Search and Autocomplete, MySQL Master-Slave Replication
 
 
