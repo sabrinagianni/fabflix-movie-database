@@ -1,62 +1,83 @@
-# 2025-spring-cs-122b
+- # General
+    - #### Team#:
 
-Sabrina Pukarta : reCAPTCHA, HTTPS, preparedstatement, encrypted password, Parser
+    - #### Names: Sabrina Pukarta, Julia Tjia
 
-Julia Tjia : preparedstatement, encrypted password servlet backend, dashboard with stored procedure, Parser
+    - #### Project 5 Video Demo Link:
 
-We used PreparedStatement on our Servlets to prevent SQL injection. 
-The files :
-BrowseGenreServlet
-EmployeeLoginServlet
-EncryptEmployeePassword
-InsertStartServlet
-LoginServlet
-MovieListServlet
-PaymentServlet
-SingleMovieServlet
-SingleStarServlet
-UpdateSecurePassword
-VerifyPassword
+    - #### Instruction of deployment: AWS IP INSTANCE : 
+    - MASTER: 3.17.166.11
+    - SLAVE: 18.118.16.20
+    - ORIGINAL FABFLIX: 3.129.169.14
 
-Parsing Time Optimization Strategies
-
-To significantly improve performance compared to a naive row-by-row insertion approach, we implemented the following two optimizations:
-
-Batching Inserts:
-Instead of executing one SQL INSERT at a time, we use addBatch() to group many insertions together and execute them as a batch. We commit batches every 500-1000 entries. This reduces database overhead and improves throughput.
-
-Multithreading:
-We run movie, actor, and cast insertions in parallel using Java’s ExecutorService with 3 threads. This allows us to fully utilize CPU resources and reduces total parsing time, especially given that these insertions operate on independent data.
-
-Additionally, we enabled rewriteBatchedStatements=true in our JDBC URL to allow MySQL to optimize the batched statements further at the driver level.
-
-Inconsistent Data Report
-
-During parsing, malformed or incomplete data is not inserted into the database. Instead, we log inconsistencies to the console for transparency.
-
-Examples of skipped data include:
-
-Movies missing title, year, or director
-
-Actors missing names
-
-Cast entries with unknown movie ID or actor name
-
-All such entries are printed to the console during parsing.
+    - #### Collaborations and Work Distribution:
+    - Sabrina Pukarta: JDBC Connection Pooling, MySQL Master-Slave Replication, Scaling Fabflix with a cluster of MySQL/Tomcat and a load balancer
+    - Julia Tjia: Full-text Search and Autocomplete, Fuzzy Search, MySQL Master-Slave Replication
 
 
-=== SUMMARY (More Details in the actual outputted file when Parser.java is ran) ===
-Inserted Movies: 12099
-Inserted Genres: 125
-Inserted Stars: 6863
-Inserted Genres_in_Movies: 9850
-Inserted Stars_in_Movies: 30373
---Full inconsistency report is shown in demo video--
+- # Connection Pooling
+    - #### Include the filename/path of all code/configuration files in GitHub of using JDBC Connection Pooling.
+    - AddMovieServlet
+    - AutocompleteServlet
+    - BrowseGenreServlet
+    - EmployeeLoginServlet
+    - InsertStarServlet
+    - LoginServlet
+    - MetadataServlet
+    - MovieListServlet
+    - PaymentServlet
+    - SingleMovieServlet
+    - SingleStarServlet 
+    - web.xml
+    - context.xml
+
+        - #### Explain how Connection Pooling is utilized in the Fabflix code.
+        - Fabflix uses Tomcat JDBC Connection Pooling to efficiently manage database connections instead of opening and closing a new connection for every query. The connection pool is configured in the context.xml file with attributes like maxTotal, maxIdle, and maxWaitMillis.
+
+        - #### Explain how Connection Pooling works with two backend SQL.
+        - Each instance (Master and Slave) runs its own Tomcat and maintains its own connection pool.
+          In the Java code, we load two sets of DB properties (master and slave), and route read vs. write operations accordingly using separate pools.
+          The read queries use a load-balanced pool that randomly chooses between master and slave. Write queries always go to the master.
 
 
-DEMO VIDEO LINK: 
-For some reason, both my partner and my instance randomly stopped working when we were trying to film the demo video...
-We tried things like restarting, redoing the ssh, but nothing seemed to work, and we were not sure what to do since this isn't
-something we can control as we found out others were going through a similar situation.
+- # Master/Slave
+    - #### Include the filename/path of all code/configuration files in GitHub of routing queries to Master/Slave SQL.
+      - AddMovieServlet
+      - AutocompleteServlet
+      - BrowseGenreServlet
+      - EmployeeLoginServlet
+      - InsertStarServlet
+      - LoginServlet
+      - MetadataServlet
+      - MovieListServlet
+      - PaymentServlet
+      - SingleMovieServlet
+      - SingleStarServlet
+      - Parser
+      - UpdateSecurePassword
+      - VerifyPassword
+      - my.cnf for replication
 
-AWS INSTANCE IP: 3.138.134.172
+        - #### How read/write requests were routed to Master/Slave SQL?
+        - Fabflix separates read and write operations at the Tomcat level. Write requests are handled by the Tomcat connected to the master MySQL. For read operations, we randomly choose between master and slave pool to reduce load on the master.
+          We deployed the same .war file to both servers and updated each context.xml to connect to the appropriate database. An Apache load balancer splits traffic between the two Tomcats, making the routing seamless to users.
+
+
+- # JMeter TS/TJ Time Logs
+    - #### Instructions of how to use the `log_processing.*` script to process the JMeter logs.
+
+
+- # JMeter TS/TJ Time Measurement Report
+
+| **Single-instance Version Test Plan**          | **Graph Results Screenshot** | **Average Query Time(ms)** | **Average Search Servlet Time(ms)** | **Average JDBC Time(ms)** | **Analysis** |
+|------------------------------------------------|------------------------------|----------------------------|-------------------------------------|---------------------------|--------------|
+| Case 1: HTTP/1 thread                          | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
+| Case 2: HTTP/10 threads                        | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
+| Case 3: HTTPS/10 threads                       | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
+| Case 4: HTTP/10 threads/No connection pooling  | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
+
+| **Scaled Version Test Plan**                   | **Graph Results Screenshot** | **Average Query Time(ms)** | **Average Search Servlet Time(ms)** | **Average JDBC Time(ms)** | **Analysis** |
+|------------------------------------------------|------------------------------|----------------------------|-------------------------------------|---------------------------|--------------|
+| Case 1: HTTP/1 thread                          | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
+| Case 2: HTTP/10 threads                        | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
+| Case 3: HTTP/10 threads/No connection pooling  | ![](path to image in img/)   | ??                         | ??                                  | ??                        | ??           |
