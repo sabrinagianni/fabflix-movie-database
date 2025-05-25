@@ -12,7 +12,7 @@
 
     - #### Collaborations and Work Distribution:
     - Sabrina Pukarta: JDBC Connection Pooling, MySQL Master-Slave Replication, Scaling Fabflix with a cluster of MySQL/Tomcat and a load balancer
-    - Julia Tjia: Full-text Search and Autocomplete, Fuzzy Search, MySQL Master-Slave Replication
+    - Julia Tjia: Full-text Search and Autocomplete, MySQL Master-Slave Replication
 
 
 - # Connection Pooling
