@@ -32,7 +32,7 @@ public class EmployeeLoginServlet extends HttpServlet {
     }
 
     private boolean verifyRecaptcha(String gRecaptchaResponse) throws Exception {
-        String secret = "6LeRlDorAAAAADn3oEMTQJ7JlI5SIQft5-9GbaSW";
+        String secret = "6Lf7PEgrAAAAAEcsMuarC-8mEUf68Ireq46Uktyx";
         URL verifyUrl = new URL("https://www.google.com/recaptcha/api/siteverify");
 
         HttpsURLConnection conn = (HttpsURLConnection) verifyUrl.openConnection();
