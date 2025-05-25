@@ -80,6 +80,8 @@ public class LoginServlet extends HttpServlet {
             }
         }
         catch (Exception e) {
+            e.printStackTrace(); // <--- ADD THIS
+            request.getServletContext().log("reCAPTCHA verification error", e);
             json.addProperty("status", "fail");
             json.addProperty("message", "Error verifying reCAPTCHA.");
             out.write(json.toString());
