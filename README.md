@@ -1,5 +1,4 @@
 - # General
-    - #### Team#:
 
     - #### Names: Sabrina Pukarta, Julia Tjia
 

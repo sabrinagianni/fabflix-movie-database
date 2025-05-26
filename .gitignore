@@ -184,3 +184,5 @@ target/
 >>>>>>> singlemovieservlet
 databases/movie-data.sql
 inconsistencies.txt
+/stanford-movies/
+
