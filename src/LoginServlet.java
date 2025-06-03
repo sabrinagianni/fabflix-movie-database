@@ -120,6 +120,7 @@ public class LoginServlet extends HttpServlet {
             rs.close();
             statement.close();
         } catch (Exception e) {
+            e.printStackTrace();
             request.getServletContext().log("Login error", e); // log to tomcat
             json.addProperty("status", "fail");
             json.addProperty("message", "Server error");
