@@ -98,9 +98,11 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                String encryptedPassword = rs.getString("password");
-                boolean passwordMatch = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
-                if (passwordMatch) {
+//                String encryptedPassword = rs.getString("password");
+//                boolean passwordMatch = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
+//                if (passwordMatch) {
+                  String storedPassword = rs.getString("password");
+                  if (password.equals(storedPassword)) {
                     int customerId = rs.getInt("id");
                     request.getSession().setAttribute("user", new User(email));
                     request.getSession().setAttribute("user_id", customerId);
