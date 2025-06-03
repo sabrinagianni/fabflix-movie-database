@@ -33,31 +33,31 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private boolean verifyRecaptcha(String gRecaptchaResponse) throws Exception {
-        String secret = "6LeeekgrAAAAAMngw7YCP4U_BZGP8cHxlk2yNiAT";
-        URL verifyUrl = new URL("https://www.google.com/recaptcha/api/siteverify");
-
-        HttpsURLConnection conn = (HttpsURLConnection) verifyUrl.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
-        conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-        String postParams = "secret=" + secret + "&response=" + gRecaptchaResponse;
-
-        conn.setDoOutput(true);
-        OutputStream outStream = conn.getOutputStream();
-        outStream.write(postParams.getBytes());
-        outStream.flush();
-        outStream.close();
-
-        InputStream inputStream = conn.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-
-        JsonObject jsonObject = new com.google.gson.Gson().fromJson(inputStreamReader, JsonObject.class);
-        inputStreamReader.close();
-
-        return jsonObject.get("success").getAsBoolean();
-    }
+//    private boolean verifyRecaptcha(String gRecaptchaResponse) throws Exception {
+//        String secret = "6LeeekgrAAAAAMngw7YCP4U_BZGP8cHxlk2yNiAT";
+//        URL verifyUrl = new URL("https://www.google.com/recaptcha/api/siteverify");
+//
+//        HttpsURLConnection conn = (HttpsURLConnection) verifyUrl.openConnection();
+//        conn.setRequestMethod("POST");
+//        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+//        conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//
+//        String postParams = "secret=" + secret + "&response=" + gRecaptchaResponse;
+//
+//        conn.setDoOutput(true);
+//        OutputStream outStream = conn.getOutputStream();
+//        outStream.write(postParams.getBytes());
+//        outStream.flush();
+//        outStream.close();
+//
+//        InputStream inputStream = conn.getInputStream();
+//        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+//
+//        JsonObject jsonObject = new com.google.gson.Gson().fromJson(inputStreamReader, JsonObject.class);
+//        inputStreamReader.close();
+//
+//        return jsonObject.get("success").getAsBoolean();
+//    }
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -66,27 +66,27 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("username");
         String password = request.getParameter("password");
-        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        System.out.println("g-recaptcha-response: " + gRecaptchaResponse);
+//        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+//        System.out.println("g-recaptcha-response: " + gRecaptchaResponse);
         JsonObject json = new JsonObject();
 
-        try{
-            boolean recaptcha = verifyRecaptcha(gRecaptchaResponse);
-            if(!recaptcha){
-                json.addProperty("status", "fail");
-                json.addProperty("message", "reCAPTCHA verification failed.");
-                out.write(json.toString());
-                return;
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace(); // <--- ADD THIS
-            request.getServletContext().log("reCAPTCHA verification error", e);
-            json.addProperty("status", "fail");
-            json.addProperty("message", "Error verifying reCAPTCHA.");
-            out.write(json.toString());
-            return;
-        }
+//        try{
+//            boolean recaptcha = verifyRecaptcha(gRecaptchaResponse);
+//            if(!recaptcha){
+//                json.addProperty("status", "fail");
+//                json.addProperty("message", "reCAPTCHA verification failed.");
+//                out.write(json.toString());
+//                return;
+//            }
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace(); // <--- ADD THIS
+//            request.getServletContext().log("reCAPTCHA verification error", e);
+//            json.addProperty("status", "fail");
+//            json.addProperty("message", "Error verifying reCAPTCHA.");
+//            out.write(json.toString());
+//            return;
+//        }
 
         try (Connection conn = dataSource.getConnection()) {
             request.getServletContext().log("Connected to database");
