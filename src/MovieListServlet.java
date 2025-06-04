@@ -1,4 +1,4 @@
-import com.google.gson.JsonArray;
+OBimport com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import javax.naming.InitialContext;
@@ -24,7 +24,7 @@ public class MovieListServlet extends HttpServlet {
 
     public void init(ServletConfig config) {
         try {
-            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/moviedb");
+            dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/MySQLReadOnly");
         } catch (NamingException e) {
             e.printStackTrace();
         }
