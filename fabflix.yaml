@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: fabflix-container
-          image: juliatjia/fabflix:v8
+          image: juliatjia/fabflix:v9
           imagePullPolicy: Always
           ports:
             - name: http
