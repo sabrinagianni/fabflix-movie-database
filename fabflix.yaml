@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: fabflix-container
-          image: juliatjia/fabflix:v5
+          image: juliatjia/fabflix:v6
           imagePullPolicy: Always
           ports:
             - name: http
@@ -45,4 +45,3 @@ spec:
     - name: http
       port: 8080
   type: ClusterIP
-
