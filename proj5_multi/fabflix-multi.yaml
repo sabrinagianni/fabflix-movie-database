@@ -14,10 +14,11 @@ spec:
     spec:
       containers:
         - name: fabflix-login-container
-          image: juliatjia/fabflix-login:v11
+          image: juliatjia/fabflix-login:v13
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+              name: http
           resources:
             limits:
               cpu: "1"
@@ -34,6 +35,7 @@ spec:
     app: fabflix-login
   ports:
     - port: 8080
+      name: http
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -52,10 +54,11 @@ spec:
     spec:
       containers:
         - name: fabflix-movies-container
-          image: juliatjia/fabflix-movies:v11
+          image: juliatjia/fabflix-movies:v13
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+              name: http
           resources:
             limits:
               cpu: "500m"
@@ -75,4 +78,5 @@ spec:
     app: fabflix-movies
   ports:
     - port: 8080
+      name: http
   type: ClusterIP

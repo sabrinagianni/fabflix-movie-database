@@ -21,6 +21,13 @@ spec:
                 name: fabflix-login-service
                 port:
                   number: 8080
+          - path: /login.*
+            pathType: ImplementationSpecific   # Implementation-specific path matching for regex
+            backend:
+              service:
+                name: fabflix-login-service
+                port:
+                  number: 8080
           - path: /
             pathType: Prefix
             backend:
