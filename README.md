@@ -2,7 +2,7 @@
 
     - #### Names: Sabrina Pukarta, Julia Tjia
 
-    - #### Project 5 Video Demo Link: [https://youtu.be/qNNeYg45_pg](https://youtu.be/tXLd-HR3b90)
+    - #### Project 5 Video Demo Link: https://youtu.be/tXLd-HR3b90
 
     - #### Instruction of deployment: AWS IP INSTANCE : 
     - MASTER: 3.17.166.11
