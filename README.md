@@ -2,7 +2,7 @@
 
     - #### Names: Sabrina Pukarta, Julia Tjia
 
-    - #### Project 4 Video Demo Link: https://youtu.be/qNNeYg45_pg
+    - #### Project 5 Video Demo Link: https://youtu.be/qNNeYg45_pg
 
     - #### Instruction of deployment: AWS IP INSTANCE : 
     - MASTER: 3.17.166.11
@@ -10,8 +10,12 @@
     - ORIGINAL FABFLIX: 3.129.169.14
 
     - #### Collaborations and Work Distribution:
-    - Sabrina Pukarta: JDBC Connection Pooling, MySQL Master-Slave Replication, Scaling Fabflix with a cluster of MySQL/Tomcat and a load balancer, RECAPTCHA
-    - Julia Tjia: Full-text Search and Autocomplete, MySQL Master-Slave Replication
+    - Sabrina Pukarta: Task 3-4
+    - Julia Tjia: Task 1-2
+
+    - #### Note:
+    - Root folder is meant for task 3 files
+    - Multiservice files can be found under the "proj5_multi" folder
 
 
 - # Connection Pooling
