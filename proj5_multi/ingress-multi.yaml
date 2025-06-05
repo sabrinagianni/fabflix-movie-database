@@ -14,14 +14,14 @@ spec:
   rules:
     - http:
         paths:
-          - path: /fabflix/api/login
+          - path: /api/login
             pathType: Prefix
             backend:
               service:
                 name: fabflix-login-service
                 port:
                   number: 8080
-          - path: /fabflix
+          - path: /
             pathType: Prefix
             backend:
               service:
