@@ -16,17 +16,17 @@
 
 - # Connection Pooling
     - #### Include the filename/path of all code/configuration files in GitHub of using JDBC Connection Pooling.
-    - AddMovieServlet
-    - AutocompleteServlet
-    - BrowseGenreServlet
-    - EmployeeLoginServlet
-    - InsertStarServlet
-    - LoginServlet
-    - MetadataServlet
-    - MovieListServlet
-    - PaymentServlet
-    - SingleMovieServlet
-    - SingleStarServlet 
+    - movies.AddMovieServlet
+    - movies.AutocompleteServlet
+    - movies.BrowseGenreServlet
+    - login.EmployeeLoginServlet
+    - movies.InsertStarServlet
+    - login.LoginServlet
+    - movies.MetadataServlet
+    - movies.MovieListServlet
+    - movies.PaymentServlet
+    - movies.SingleMovieServlet
+    - movies.SingleStarServlet 
     - web.xml
     - context.xml
 
@@ -41,20 +41,20 @@
 
 - # Master/Slave
     - #### Include the filename/path of all code/configuration files in GitHub of routing queries to Master/Slave SQL.
-      - AddMovieServlet
-      - AutocompleteServlet
-      - BrowseGenreServlet
-      - EmployeeLoginServlet
-      - InsertStarServlet
-      - LoginServlet
-      - MetadataServlet
-      - MovieListServlet
-      - PaymentServlet
-      - SingleMovieServlet
-      - SingleStarServlet
-      - Parser
-      - UpdateSecurePassword
-      - VerifyPassword
+      - movies.AddMovieServlet
+      - movies.AutocompleteServlet
+      - movies.BrowseGenreServlet
+      - login.EmployeeLoginServlet
+      - movies.InsertStarServlet
+      - login.LoginServlet
+      - movies.MetadataServlet
+      - movies.MovieListServlet
+      - movies.PaymentServlet
+      - movies.SingleMovieServlet
+      - movies.SingleStarServlet
+      - movies.Parser
+      - movies.UpdateSecurePassword
+      - movies.VerifyPassword
       - my.cnf for replication
 
         - #### How read/write requests were routed to Master/Slave SQL?

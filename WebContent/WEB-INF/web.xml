@@ -24,29 +24,29 @@
 
 <!--    &lt;!&ndash; Register Servlets and URL mappings &ndash;&gt;-->
 <!--    <servlet>-->
-<!--        <servlet-name>MovieListServlet</servlet-name>-->
-<!--        <servlet-class>MovieListServlet</servlet-class>-->
+<!--        <servlet-name>movies.MovieListServlet</servlet-name>-->
+<!--        <servlet-class>movies.MovieListServlet</servlet-class>-->
 <!--    </servlet>-->
 <!--    <servlet-mapping>-->
-<!--        <servlet-name>MovieListServlet</servlet-name>-->
+<!--        <servlet-name>movies.MovieListServlet</servlet-name>-->
 <!--        <url-pattern>/api/movielist</url-pattern>-->
 <!--    </servlet-mapping>-->
 
 <!--    <servlet>-->
-<!--        <servlet-name>SingleMovieServlet</servlet-name>-->
-<!--        <servlet-class>SingleMovieServlet</servlet-class>-->
+<!--        <servlet-name>movies.SingleMovieServlet</servlet-name>-->
+<!--        <servlet-class>movies.SingleMovieServlet</servlet-class>-->
 <!--    </servlet>-->
 <!--    <servlet-mapping>-->
-<!--        <servlet-name>SingleMovieServlet</servlet-name>-->
+<!--        <servlet-name>movies.SingleMovieServlet</servlet-name>-->
 <!--        <url-pattern>/api/movie</url-pattern>-->
 <!--    </servlet-mapping>-->
 
 <!--    <servlet>-->
-<!--        <servlet-name>SingleStarServlet</servlet-name>-->
-<!--        <servlet-class>SingleStarServlet</servlet-class>-->
+<!--        <servlet-name>movies.SingleStarServlet</servlet-name>-->
+<!--        <servlet-class>movies.SingleStarServlet</servlet-class>-->
 <!--    </servlet>-->
 <!--    <servlet-mapping>-->
-<!--        <servlet-name>SingleStarServlet</servlet-name>-->
+<!--        <servlet-name>movies.SingleStarServlet</servlet-name>-->
 <!--        <url-pattern>/api/single-star</url-pattern>-->
 <!--    </servlet-mapping>-->
     <security-constraint>
