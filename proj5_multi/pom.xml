@@ -162,7 +162,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${project.basedir}/common</source>
+                                <source>src/common</source>
                             </sources>
                         </configuration>
                     </execution>
