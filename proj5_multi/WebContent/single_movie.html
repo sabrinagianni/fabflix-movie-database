@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Single Movie Details</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/single_movie.css">
+</head>
+<body>
+<!--<div style="margin: 20px;">-->
+<!--    <a href="movielist.html" style="font-weight: bold; font-size: 18px; color: #6684b5">← Back to Top 20 Movies/Home</a>-->
+<!--</div>-->
+
+<div id="back-link" style="margin: 20px;"></div>
+<div id="cart-message" style="text-align: center; margin-top: 1rem;"></div>
+
+<div class="container">
+    <div id="movie-info">
+        <!-- Title and year will be injected here -->
+    </div>
+
+    <table id="movie-details">
+        <thead>
+        <tr>
+            <th>Director</th>
+            <th>Genres</th>
+            <th>Stars</th>
+            <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody id="movie-body">
+        <!-- Row will be dynamically added -->
+        </tbody>
+    </table>
+
+    <div id="add-to-cart-button" style="text-align: center; margin: 20px;"></div>
+    <div id="cart-button-container">
+        <button id="checkout-button" onclick="location.href='cart.html'">Checkout</button>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/single_movie.js"></script>
+</body>
+</html>

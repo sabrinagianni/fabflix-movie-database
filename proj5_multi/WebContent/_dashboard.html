@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Login - Fabflix</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Employee Login</h1>
+
+    <form id="employee-login-form" method="post" action="#">
+        <label><b>Email</b></label>
+        <input name="email" placeholder="Enter Email" type="text" required><br><br>
+
+        <label><b>Password</b></label>
+        <input name="password" placeholder="Enter Password" type="password" required><br><br>
+
+        <div class="g-recaptcha" data-sitekey="6LeeekgrAAAAAGYU1tn_r9BOB5o8CYZFuaQNr0wa"></div><br>
+
+        <input type="submit" value="Login">
+        <div id="login_error_message"></div>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/employee_login.js"></script>
+</body>
+</html>
