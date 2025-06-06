@@ -185,4 +185,5 @@ target/
 databases/movie-data.sql
 inconsistencies.txt
 /stanford-movies/
+/moviedb_migration.sql
 
