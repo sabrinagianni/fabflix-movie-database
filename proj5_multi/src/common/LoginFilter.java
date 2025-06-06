@@ -72,13 +72,11 @@ public class LoginFilter implements Filter {
 
         System.out.println("[LoginFilter] Checking access for: " + httpRequest.getRequestURI());
 
-        // 1. Allow access to public files like login.html, login.js
         if (isUrlAllowedWithoutLogin(httpRequest.getRequestURI())) {
             chain.doFilter(request, response);
             return;
         }
 
-        // 2. Try to get and validate the JWT token from cookies
         String jwt = JwtUtil.getCookieValue(httpRequest, "jwtToken");
         Claims claims = JwtUtil.validateToken(jwt);
 

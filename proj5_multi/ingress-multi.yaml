@@ -15,14 +15,14 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/login
+          - path: /fabflix/api/login
             pathType: Prefix
             backend:
               service:
                 name: fabflix-login-service
                 port:
                   number: 8080
-          - path: /login.*
+          - path: /fabflix/login.*
             pathType: ImplementationSpecific   # Implementation-specific path matching for regex
             backend:
               service:

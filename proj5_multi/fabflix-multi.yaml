@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: fabflix-login-container
-          image: juliatjia/fabflix-login:v13
+          image: juliatjia/fabflix-login:v15
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
         - name: fabflix-movies-container
-          image: juliatjia/fabflix-movies:v13
+          image: juliatjia/fabflix-movies:v15
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
