@@ -81,7 +81,6 @@ public class LoginFilter implements Filter {
         Claims claims = JwtUtil.validateToken(jwt);
 
         if (claims != null) {
-            // Save claims to request so other servlets can use it
             httpRequest.setAttribute("claims", claims);
             chain.doFilter(request, response);
         } else {
